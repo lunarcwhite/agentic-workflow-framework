@@ -1,24 +1,61 @@
-# UAAF v3.0.1 Reference Distribution
+# Universal AI Agent Framework (UAAF)
 
-UAAF v3.0.1 extends the cumulative federation stack with explicit remote execution semantics, zero-warning fresh scaffold conformance, and robust semver compatibility. The v2.6 confidential transport and v2.5 authenticated transport remain available as lower federation layers.
+[![CI](https://github.com/lunarcwhite/universal-agent-framework/actions/workflows/ci.yml/badge.svg)](https://github.com/lunarcwhite/universal-agent-framework/actions/workflows/ci.yml)
+[![Release](https://img.shields.io/github/v/release/lunarcwhite/universal-agent-framework?color=blue&label=release)](https://github.com/lunarcwhite/universal-agent-framework/releases)
+[![Python](https://img.shields.io/badge/python-3.9%20%7C%203.10%20%7C%203.11%20%7C%203.12-blue)](https://www.python.org/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Spec](https://img.shields.io/badge/spec-UAP--1.0%20%7C%20UAAF--FED--3.0-success)](./spec)
 
+UAAF is an open protocol, reference knowledge scaffold, and secure runtime for autonomous AI coding agents. It prevents silent drift, enforces anti-slop constraints, anchors verifiable evidence, and enables decentralized multi-agent federation.
 
-Universal AI Agent Framework reference implementation.
+---
 
-## Components
+## ⚡ Quick Start
 
-- `tools/` — distribution-side CLI entrypoint (`uaf.py`), initializer, validators, RCE, memory, coordination, security, and delivery tools
-- `scaffold/` — project-side Minimal/Standard/Full knowledge scaffold (`.ai/`)
-- `templates/` — reusable task/evidence/context/handoff artifacts
-- `spec/` — normative specification and extension contracts
-- `tests/` — regression, longitudinal, field-archetype, and extension tests
-- `examples/` — Northstar reference projects, including the v2.6 confidential transport reference
-- `archive/` — historical release snapshots (v1.0 through v3.0.0)
+### Installation
 
-## Initialize an existing project
+Clone the repository and install the CLI:
 
 ```bash
-python tools/uaf.py init ./my-project --profile standard --auto-detect --docs auto
+git clone https://github.com/lunarcwhite/universal-agent-framework.git
+cd universal-agent-framework
+pip install -e .
+```
+
+Verify installation:
+```bash
+uaf --help
+```
+
+*(Alternatively, run without installation using `python tools/uaf.py ...`)*
+
+---
+
+## 📁 Repository Structure
+
+| Directory / File | Description |
+| :--- | :--- |
+| [`tools/`](./tools) | Distribution CLI (`uaf`), initializer, validators, memory compaction, and federation runtime. |
+| [`scaffold/`](./scaffold) | Project-side template (`.ai/`) provisioned into user projects. |
+| [`spec/`](./spec) | Normative specifications (`UAAF-v1.0-MASTER-SPEC.md`, `v2.0`, `v3.0-ADDENDUM.md`, etc.). |
+| [`templates/`](./templates) | Standardized task contracts, evidence receipts, context receipts, and handoffs. |
+| [`tests/`](./tests) | Conformance test suite, longitudinal tests, and field archetype validations. |
+| [`reports/`](./reports) | Comprehensive historical validation, implementation, and field reports. |
+| [`archive/`](./archive) | Historical standalone distributions from v1.0 through v3.0.0. |
+| [`examples/`](./examples) | Reference implementation examples (e.g. Northstar, confidential transport). |
+
+---
+
+## 🛠️ Initialize a Project
+
+Initialize UAF into any new or existing project:
+
+```bash
+# Standard profile (recommended for general projects)
+uaf init ./my-project --profile standard --auto-detect
+
+# Full profile with Federated Agent Runtime v3.0.1
+uaf init ./my-project --profile full --extension v3.0.1
 ```
 
 Use `--docs all` for the complete documentation catalog or `--docs none` to omit `docs/`.
