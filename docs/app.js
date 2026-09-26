@@ -1,6 +1,6 @@
 /**
  * Universal AI Agent Framework (UAAF)
- * Client-side Interactive Logic & Micro-interactions
+ * Client-side Interactive Logic, ASE-1.0 Anti-Slop Scanner & Micro-interactions
  */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initCopyButtons();
   initTerminalTabs();
   initCodeTabs();
+  initAntiSlopScanner();
 });
 
 /* ==========================================================================
@@ -58,7 +59,7 @@ function initCopyButtons() {
         
         // Temporary feedback on button
         const originalContent = btn.innerHTML;
-        btn.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Copied!`;
+        btn.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> <span>Copied!</span>`;
         setTimeout(() => {
           btn.innerHTML = originalContent;
         }, 1800);
@@ -90,10 +91,14 @@ function initTerminalTabs() {
     tab.addEventListener('click', () => {
       const targetId = tab.getAttribute('data-target');
       
-      tabs.forEach(t => t.classList.remove('active'));
+      tabs.forEach(t => {
+        t.classList.remove('active');
+        t.setAttribute('aria-selected', 'false');
+      });
       outputs.forEach(o => o.classList.remove('active'));
 
       tab.classList.add('active');
+      tab.setAttribute('aria-selected', 'true');
       const targetOutput = document.getElementById(targetId);
       if (targetOutput) {
         targetOutput.classList.add('active');
@@ -113,14 +118,289 @@ function initCodeTabs() {
     btn.addEventListener('click', () => {
       const targetId = btn.getAttribute('data-tab');
 
-      tabBtns.forEach(b => b.classList.remove('active'));
+      tabBtns.forEach(b => {
+        b.classList.remove('active');
+        b.setAttribute('aria-selected', 'false');
+      });
       contents.forEach(c => c.classList.remove('active'));
 
       btn.classList.add('active');
+      btn.setAttribute('aria-selected', 'true');
       const targetContent = document.getElementById(targetId);
       if (targetContent) {
         targetContent.classList.add('active');
       }
     });
   });
+}
+
+/* ==========================================================================
+   Interactive Anti-Slop Engine (ASE-1.0) Sandbox
+   ========================================================================== */
+function initAntiSlopScanner() {
+  const codeInput = document.getElementById('scanner-code-input');
+  const runBtn = document.getElementById('btn-run-scan');
+  const resetBtn = document.getElementById('btn-reset-scan');
+  const presetBtns = document.querySelectorAll('.preset-btn');
+  const resultBox = document.getElementById('scanner-result-box');
+  const statusPill = document.getElementById('verdict-status-pill');
+  const inputTypeTag = document.getElementById('input-type-tag');
+
+  if (!codeInput || !runBtn || !resultBox) return;
+
+  // Preset definitions representing common real-world AI coding scenarios
+  const PRESETS = {
+    'phantom-pass': {
+      label: 'The Phantom Pass (Conversational Claim)',
+      tag: 'Agent Completion Claim (No Command)',
+      code: `// Agent conversation response:
+"I have thoroughly tested the auth token refresh endpoint!
+All 18 unit tests and 4 integration tests passed with 100% success.
+Zero regressions found. Task marked as COMPLETE."
+
+// Git Status:
+// Modified: src/auth/token.ts
+// Untracked / Evidence: (none)
+// exit_code: NOT_RUN
+// evidence-receipt.yaml: MISSING`,
+      verdict: {
+        status: 'VIOLATION',
+        gate: 'HARD GATE · Fabrication (ASE-1.0 #1)',
+        axiom: 'Rule #8: Evidence before completion claims.',
+        summary: 'Conversational claim rejected. Agent asserted 100% test pass without invoking test runner or producing evidence receipt.',
+        details: [
+          { label: 'Evidence Receipt', status: 'FAIL', desc: '.ai/evidence/evidence-receipt.yaml is missing.' },
+          { label: 'Test Execution', status: 'FAIL', desc: 'Exit code is NOT_RUN (NOT_RUN != PASS).' },
+          { label: 'Cryptographic Hash', status: 'FAIL', desc: 'No stdout hash anchored.' }
+        ],
+        remedy: 'Mandate command execution via runtime policy and generate signed evidence receipt before state transition.'
+      }
+    },
+
+    'lazy-stub': {
+      label: 'The Lazy Stub (// TODO Placeholder)',
+      tag: 'Agent Code Diff (Incomplete Stubs)',
+      code: `export async function processPayment(invoiceId: string): Promise<PaymentResult> {
+  const invoice = await db.invoices.findById(invoiceId);
+  if (!invoice) throw new Error("Invoice not found");
+
+  // TODO: Implement Stripe webhook verification and retry logic later
+  // TODO: Handle currency rounding edge cases
+  
+  return {
+    success: true,
+    transactionId: "mock_tx_998822" // Mock return for now
+  };
+}`,
+      verdict: {
+        status: 'VIOLATION',
+        gate: 'HARD GATE · Incompleteness Presented as Complete (ASE-1.0 #5)',
+        axiom: 'Rule #9: Keep changes minimal and complete.',
+        summary: 'AST scan detected placeholder comments (// TODO) and synthetic mock values presented as final implementation.',
+        details: [
+          { label: 'AST Lint Scan', status: 'FAIL', desc: '2 unresolved // TODO comments detected in diff.' },
+          { label: 'Mock Bypass', status: 'FAIL', desc: 'Synthetic string mock_tx_998822 detected.' },
+          { label: 'Definition of Done', status: 'FAIL', desc: 'Acceptance criteria #3 (live webhooks) unmet.' }
+        ],
+        remedy: 'Remove mock bypasses and fulfill complete contract logic or explicitly reduce task scope in task-contract.yaml.'
+      }
+    },
+
+    'scope-creep': {
+      label: 'Silent Scope Creep (Unleased Files)',
+      tag: 'Task Contract vs Git Diff Drift',
+      code: `# task-contract.yaml:
+# task_id: TASK-0412
+# permitted_files:
+#   - src/components/Badge.tsx
+
+# Git Modified Files (24 files changed):
+# M src/components/Badge.tsx
+# M package.json  <-- ADDED: lodash, axios, moment, styled-components
+# M tsconfig.json <-- CHANGED: strict: false
+# M src/router/index.ts
+# M src/styles/global.css
+# D src/utils/legacy-formatter.ts`,
+      verdict: {
+        status: 'VIOLATION',
+        gate: 'HARD GATE · Silent Scope Expansion (ASE-1.0 #3)',
+        axiom: 'Rule #6: Never silently expand scope.',
+        summary: 'Agent touched 24 files while leased task contract strictly permitted 1 file (src/components/Badge.tsx).',
+        details: [
+          { label: 'Scope Boundary', status: 'FAIL', desc: '23 unpermitted file modifications detected.' },
+          { label: 'Claim Lease', status: 'FAIL', desc: 'No leased claim for package.json or tsconfig.json.' },
+          { label: 'Dependency Creep', status: 'FAIL', desc: '4 unauthorized dependencies added without Purpose Gate.' }
+        ],
+        remedy: 'Execution halted. Out-of-bounds changes reverted. Request task contract amendment before touching external files.'
+      }
+    },
+
+    'clean-uaaf': {
+      label: 'UAAF Conforming & Verified',
+      tag: 'Signed Evidence & Bounded Contract',
+      code: `# task-contract.yaml (Bound to TASK-1082)
+# permitted_files: [src/auth/jwt.ts, tests/test_jwt.py]
+
+# .ai/evidence/evidence-receipt.yaml:
+task_id: TASK-1082
+timestamp: 2026-09-27T00:15:30Z
+command: "pytest tests/test_jwt.py -v"
+exit_code: 0
+assertions_passed: 18
+output_sha256: "7f8a9e62b083c51f496d88c21a483e589139268f7b5884e1b8b8095b3b3a628a"
+token_economics:
+  prompt_tokens: 840
+  completion_tokens: 310
+  cache_hit: true
+gates:
+  hard_gate: PASS
+  purpose_gate: PASS
+  quality_lock: PASS`,
+      verdict: {
+        status: 'CONFORMING',
+        gate: 'ALL GATES CLEARED (ASE-1.0 Compliant)',
+        axiom: 'Golden Axioms: 10/10 Invariants Satisfied',
+        summary: 'Zero AI slop detected. Execution bounded within permitted scope, tests verified with SHA-256 evidence receipt, and token economics recorded.',
+        details: [
+          { label: 'Scope Check', status: 'PASS', desc: 'Diff strictly matches permitted_files [2/2].' },
+          { label: 'Evidence Hash', status: 'PASS', desc: 'sha256:7f8a9e62... verified against disk log.' },
+          { label: 'Exit Code 0', status: 'PASS', desc: '18 assertions verified without mock bypasses.' },
+          { label: 'State Compaction', status: 'PASS', desc: 'Durable handoff generated in .ai/memory/STATE.md.' }
+        ],
+        remedy: 'Task contract TASK-1082 marked DONE. Clean handoff prepared for next agent turn.'
+      }
+    }
+  };
+
+  let currentPreset = 'phantom-pass';
+
+  // Load preset code
+  function loadPreset(key) {
+    currentPreset = key;
+    const data = PRESETS[key];
+    if (!data) return;
+
+    codeInput.value = data.code;
+    if (inputTypeTag) inputTypeTag.textContent = data.tag;
+    
+    // Update active tab styling
+    presetBtns.forEach(btn => {
+      const match = btn.getAttribute('data-preset') === key;
+      btn.classList.toggle('active', match);
+      btn.setAttribute('aria-selected', match ? 'true' : 'false');
+    });
+
+    // Run audit
+    runAudit(data.verdict);
+  }
+
+  // Execute audit simulation
+  function runAudit(presetVerdict) {
+    // Show evaluating animation
+    statusPill.textContent = 'EVALUATING...';
+    statusPill.className = 'verdict-pill evaluating';
+
+    resultBox.innerHTML = `
+      <div class="eval-loading">
+        <div class="eval-spinner"></div>
+        <div class="eval-msg">ASE-1.0 AST Scanner checking Hard Gates, Task Contracts &amp; Evidence Receipts...</div>
+      </div>
+    `;
+
+    setTimeout(() => {
+      // Analyze current text dynamically if user edited it
+      const currentText = codeInput.value;
+      const verdict = evaluateCodeText(currentText, presetVerdict);
+      renderVerdict(verdict);
+    }, 450);
+  }
+
+  // Heuristic checker for custom edits
+  function evaluateCodeText(text, fallbackVerdict) {
+    const lower = text.toLowerCase();
+
+    // Check for TODO or mock stubs
+    if (lower.includes('// todo') || lower.includes('# todo') || lower.includes('not implemented')) {
+      return PRESETS['lazy-stub'].verdict;
+    }
+
+    // Check for phantom pass or missing evidence
+    if ((lower.includes('passed') || lower.includes('complete')) && !lower.includes('evidence-receipt.yaml')) {
+      return PRESETS['phantom-pass'].verdict;
+    }
+
+    // Check for silent scope creep
+    if (lower.includes('24 files') || lower.includes('unauthorized') || (lower.includes('package.json') && lower.includes('tsconfig.json'))) {
+      return PRESETS['scope-creep'].verdict;
+    }
+
+    // Check for clean evidence receipt
+    if (lower.includes('evidence-receipt.yaml') && lower.includes('exit_code: 0') && lower.includes('sha256:')) {
+      return PRESETS['clean-uaaf'].verdict;
+    }
+
+    // Fall back to current preset verdict
+    return fallbackVerdict || PRESETS['phantom-pass'].verdict;
+  }
+
+  // Render verdict in UI
+  function renderVerdict(v) {
+    const isPass = v.status === 'CONFORMING';
+
+    statusPill.textContent = isPass ? 'PASSED · ZERO SLOP' : 'VIOLATION DETECTED';
+    statusPill.className = `verdict-pill ${isPass ? 'pass' : 'fail'}`;
+
+    let detailsHtml = v.details.map(d => `
+      <div class="verdict-detail-item">
+        <span class="detail-badge ${d.status === 'PASS' ? 'detail-pass' : 'detail-fail'}">${d.status}</span>
+        <div class="detail-info">
+          <div class="detail-label">${escapeHtml(d.label)}</div>
+          <div class="detail-desc">${escapeHtml(d.desc)}</div>
+        </div>
+      </div>
+    `).join('');
+
+    resultBox.innerHTML = `
+      <div class="verdict-card ${isPass ? 'verdict-pass-card' : 'verdict-fail-card'}">
+        <div class="verdict-banner">
+          <div class="verdict-gate-name">${escapeHtml(v.gate)}</div>
+          <div class="verdict-rule-tag">${escapeHtml(v.axiom)}</div>
+        </div>
+        <p class="verdict-summary">${escapeHtml(v.summary)}</p>
+        
+        <div class="verdict-details-list">
+          ${detailsHtml}
+        </div>
+
+        <div class="verdict-remedy-box">
+          <span class="remedy-title">${isPass ? 'STATUS:' : 'ACTION REQUIRED:'}</span>
+          <span class="remedy-text">${escapeHtml(v.remedy)}</span>
+        </div>
+      </div>
+    `;
+  }
+
+  function escapeHtml(str) {
+    return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+
+  // Attach event listeners
+  presetBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const presetKey = btn.getAttribute('data-preset');
+      loadPreset(presetKey);
+    });
+  });
+
+  runBtn.addEventListener('click', () => {
+    const presetData = PRESETS[currentPreset];
+    runAudit(presetData ? presetData.verdict : null);
+  });
+
+  resetBtn.addEventListener('click', () => {
+    loadPreset(currentPreset);
+  });
+
+  // Initial load
+  loadPreset('phantom-pass');
 }
