@@ -1,6 +1,0 @@
-{"action": "IMPORT", "added": 0, "schema_version": "1.7", "timestamp": "2026-09-25T18:35:09+00:00"}
-{"action": "REVIEWED", "proposal_id": "OPT-POL-NS01", "reason": "", "reviewer": "HUMAN-1", "schema_version": "1.7", "timestamp": "2026-09-25T18:35:27+00:00"}
-{"action": "APPROVED", "proposal_id": "OPT-POL-NS01", "reason": "Reference governance smoke test", "reviewer": "HUMAN-1", "schema_version": "1.7", "timestamp": "2026-09-25T18:35:28+00:00"}
-{"action": "APPLY", "backups": [{"backup": ".ai/governance/rollback/OPT-POL-NS01/.ai__optimization__POLICY.yaml.bak", "path": ".ai/optimization/POLICY.yaml"}], "changes": [{"key": "adaptive.max_replan_rate_per_task", "operation": "set", "path": ".ai/optimization/POLICY.yaml", "value": 3.0}], "proposal_id": "OPT-POL-NS01", "schema_version": "1.7", "timestamp": "2026-09-25T18:35:29+00:00"}
-{"action": "VERIFIED", "proposal_id": "OPT-POL-NS01", "schema_version": "1.7", "timestamp": "2026-09-25T18:35:30+00:00"}
-{"action": "ROLLBACK", "backups": [{"backup": ".ai/governance/rollback/OPT-POL-NS01/.ai__optimization__POLICY.yaml.bak", "path": ".ai/optimization/POLICY.yaml"}], "proposal_id": "OPT-POL-NS01", "schema_version": "1.7", "timestamp": "2026-09-25T18:35:30+00:00"}

@@ -1,8 +1,0 @@
-enabled: true
-mode: contextual
-skills:
-  ui: true
-  code: true
-  copy: true
-  human: true
-  responsive: true

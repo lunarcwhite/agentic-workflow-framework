@@ -1,5 +1,0 @@
-# UAAF runtime-sensitive federation material
-.ai/federation/secure/keys/*.pem
-.ai/federation/secure/keys/*.key
-.ai/federation/secure/keys/*
-!.ai/federation/secure/keys/.gitkeep

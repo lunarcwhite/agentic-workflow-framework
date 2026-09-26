@@ -41,8 +41,21 @@ uaf --help
 | [`templates/`](./templates) | Standardized task contracts, evidence receipts, context receipts, and handoffs. |
 | [`tests/`](./tests) | Conformance test suite, longitudinal tests, and field archetype validations. |
 | [`reports/`](./reports) | Comprehensive historical validation, implementation, and field reports. |
-| [`archive/`](./archive) | Historical standalone distributions from v1.0 through v3.0.0. |
 | [`examples/`](./examples) | Reference implementation examples (e.g. Northstar, confidential transport). |
+
+### 🏷️ Historical Releases & Tags
+
+All 23 historical releases (from `v1.0.0` up to `v3.0.0`) are permanently preserved in Git tags and GitHub Releases. You can inspect or checkout any past version without bloating the working tree:
+
+```bash
+# List all release tags
+git tag -l
+
+# Checkout a specific historical version
+git checkout v2.0.0
+```
+
+Release assets and changelogs are also accessible directly via [GitHub Releases](https://github.com/lunarcwhite/universal-agent-framework/releases).
 
 ---
 

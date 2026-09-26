@@ -1,9 +1,0 @@
-schema_version: '1.9'
-keys:
-- key_id: NORTHSTAR-ROOT-002
-  algorithm: Ed25519
-  role: root
-  public_key: blcDn21ocXvexxxlWdDvWY+sV2QiH1f6tgpZkWkZO2U=
-  fingerprint_sha256: d68f85289245901f4051503980e2a78360a89832bbb637ddf49eb416bf67e46a
-  status: ACTIVE
-  not_before: '2026-09-25T19:22:26Z'

@@ -1,7 +1,0 @@
-schema_version: '2.6'
-enabled: true
-require_confidentiality: true
-cipher_suite: ChaCha20-Poly1305
-key_agreement: X25519
-kdf: HKDF-SHA256
-rekey_enabled: true

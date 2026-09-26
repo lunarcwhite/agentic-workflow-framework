@@ -1,9 +1,0 @@
-schema_version: '1.9'
-keys:
-- key_id: AGENT-ROOT-V20
-  algorithm: Ed25519
-  role: root
-  public_key: XAOkkRuiNxLvyivpQ0FfHMwoxSRtbxwmJmJ0dMCn4Lg=
-  fingerprint_sha256: f90c44b0e7bc0766bdfcdd816dc6dd5dd6737a823613894d3f4ba2e9f584f96a
-  status: ACTIVE
-  not_before: '2026-09-26T00:48:07Z'

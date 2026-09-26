@@ -1,9 +1,0 @@
-agents:
-  - id: AGENT-CODE
-    capabilities: [backend, python]
-    authority: task-scoped
-    status: active
-  - id: AGENT-TEST
-    capabilities: [testing]
-    authority: verification
-    status: available

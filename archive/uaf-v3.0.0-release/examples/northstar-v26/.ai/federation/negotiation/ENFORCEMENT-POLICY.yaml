@@ -1,3 +1,0 @@
-schema_version: '2.3'
-default_deny: true
-fail_closed: true
