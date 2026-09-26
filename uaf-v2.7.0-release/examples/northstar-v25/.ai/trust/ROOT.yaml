@@ -1,0 +1,11 @@
+schema_version: '1.9'
+anchor: {}
+policy:
+  enabled: true
+  cryptographic_required: false
+  external_pin_required: false
+  required_purposes:
+    - trust-root
+    - trust-keys
+    - trust-policy
+    - delegations

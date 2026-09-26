@@ -1,0 +1,10 @@
+id: EVD-0001
+type: evidence
+subject:
+  type: memory
+  id: MEM-0001
+method: [source_inspection, targeted_test]
+sources: [src.py, test_src.py]
+result: confirmed
+verified_at: 2026-09-25
+verified_by: AGENT-TEST

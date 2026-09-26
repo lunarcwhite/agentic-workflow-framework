@@ -1,0 +1,210 @@
+schema_version: '1.0'
+framework:
+  name: Universal AI Agent Framework
+  id: UAAF
+  version: 2.6.0
+protocols:
+  agent: UAP-1.0
+  context: CLE-1.0
+  intent: IRE-1.0
+  planning: APRE-1.0
+  memory: MEE-1.0
+  anti_slop: ASE-1.0
+  verification: VEE-1.0
+  reality: RCE-1.0
+  federation: UAAF-FED-2.0
+  federation_ops: UAAF-FED-2.1
+  federation_intelligence: UAAF-FED-2.2
+  federation_policy: UAAF-FED-2.3
+  federation_protocol: UAAF-FED-2.4
+  federation_transport: UAAF-FED-2.5
+  federation_transport_confidential: UAAF-FED-2.6
+project:
+  name: Northstar
+  type: reference
+  maturity: existing
+  status: active
+agent:
+  autonomy_level: 3
+  mode: adaptive
+features:
+  memory: true
+  anti_slop: true
+  verification: true
+  replanning: true
+  session_handoff: true
+  traceability: true
+capabilities:
+  product: false
+  frontend: false
+  backend: true
+  api: true
+  database: false
+  ui: false
+  design_system: false
+  security: false
+  performance: false
+  deployment: false
+  mobile: false
+  data: false
+  testing: true
+  infrastructure: false
+planning:
+  evidence_first: true
+  max_replans_without_review: 2
+quality:
+  required_for_done:
+  - intent
+  - requirements
+  - acceptance_criteria
+  - verification
+  - scope
+anti_slop:
+  enabled: true
+  mode: contextual
+verification:
+  enabled: true
+  default_evidence_depth: risk_based
+sessions:
+  enabled: true
+  id_format: SES-YYYYMMDD-NNN
+source_of_truth:
+  current_implementation: repository
+  state: .ai/memory/STATE.md
+  memory: .ai/memory/entries
+  decisions: .ai/decisions
+  verification: .ai/verification
+profile: full
+extensions:
+  version: '2.6'
+  capabilities:
+    file: .ai/capabilities.yaml
+    mode: layered
+  context_impact:
+    file: .ai/context/IMPACT-GRAPH.yaml
+    mode: advisory
+  memory_compaction:
+    file: .ai/memory/compaction/README.md
+    mode: conservative
+  rce_strong:
+    file: .ai/health/RCE-STRONG.md
+    mode: snapshot_and_scan
+  git_traceability:
+    file: .ai/health/GIT-BASELINE.yaml
+    mode: read_only_baseline
+  claim_leasing:
+    file: .ai/agents/CLAIMS.yaml
+    mode: atomic_lease
+  runtime_verification:
+    file: .ai/verification/RUNTIME-POLICY.yaml
+    mode: allowlisted_subprocess
+  security_diagnostics:
+    file: .ai/security/SECURITY-DIAGNOSTICS.md
+    mode: static_read_only
+  git_task_traceability:
+    file: .ai/health/GIT-TASK-TRACEABILITY.md
+    mode: semantic_advisory
+  runtime_evidence:
+    file: .ai/verification/RUNTIME-EVIDENCE.md
+    mode: delivery_gate
+    required_for_risk:
+    - CRITICAL
+  observability:
+    policy: .ai/observability/POLICY.yaml
+    events: .ai/observability/EVENTS.jsonl
+    mode: metadata_first
+  adaptive_learning:
+    policy: .ai/optimization/POLICY.yaml
+    analysis: .ai/optimization/ANALYSIS.yaml
+    proposals: .ai/optimization/PROPOSALS.yaml
+    mode: advisory_only
+  governance:
+    policy: .ai/governance/POLICY.yaml
+    proposals: .ai/governance/PROPOSALS.yaml
+    audit: .ai/governance/AUDIT.jsonl
+    mode: explicit_approval
+  cryptographic_integrity:
+    root: .ai/trust/ROOT.yaml
+    keys: .ai/trust/KEYS.yaml
+    mode: signed_detached_ed25519
+    cryptographic_required: false
+    external_pin_required: false
+    required_purposes:
+    - trust-root
+    - trust-keys
+    - trust-policy
+    - delegations
+  agent_trust:
+    policy: .ai/agents/TRUST.yaml
+    delegations: .ai/agents/DELEGATIONS.yaml
+    audit: .ai/agents/TRUST-AUDIT.jsonl
+    mode: bounded_delegation
+  distributed_federation:
+    identity: .ai/federation/IDENTITY.yaml
+    peers: .ai/federation/PEERS.yaml
+    policy: .ai/federation/FEDERATION-POLICY.yaml
+    replay: .ai/federation/REPLAY.yaml
+    audit: .ai/federation/AUDIT.jsonl
+    state: .ai/federation/state
+    handoffs: .ai/federation/HANDOFFS
+    mode: transport_agnostic
+    default_deny: true
+    signed_handoff: true
+    signed_state: true
+  federation_operations:
+    mode: .ai/federation/ops/MODE.yaml
+    cursors: .ai/federation/ops/CURSORS.yaml
+    bundles: .ai/federation/ops/BUNDLES.yaml
+    revocations: .ai/federation/ops/REVOCATIONS.yaml
+    checkpoints: .ai/federation/ops/CHECKPOINTS.yaml
+    conflicts: .ai/federation/ops/CONFLICTS.yaml
+    observability: .ai/federation/ops/OBSERVABILITY.jsonl
+    modes:
+    - ONLINE
+    - OFFLINE
+    - PARTITIONED
+    - RECOVERING
+  federation_intelligence:
+    policy: .ai/federation/policy/INHERITANCE.yaml
+    effective_policy: .ai/federation/policy/EFFECTIVE.yaml
+    conflict_analysis: .ai/federation/intelligence/CONFLICT-ANALYSIS.yaml
+    sync_plans: .ai/federation/intelligence
+    checkpoint_selection: .ai/federation/intelligence/CHECKPOINT-SELECTION.yaml
+    recovery_recommendation: .ai/federation/intelligence/RECOVERY-RECOMMENDATION.yaml
+    mode: advisory_policy_intelligence
+  federation_policy_negotiation:
+    contract: .ai/federation/negotiation/CAPABILITY-CONTRACT.yaml
+    negotiation: .ai/federation/negotiation/NEGOTIATION.yaml
+    enforcement: .ai/federation/negotiation/ENFORCEMENT-POLICY.yaml
+    mode: deny_first_non_escalating
+  federation_protocol_negotiation:
+    capabilities: .ai/federation/protocol/CAPABILITIES.yaml
+    compatibility: .ai/federation/protocol/COMPATIBILITY.yaml
+    negotiation: .ai/federation/protocol/NEGOTIATION.yaml
+    contract: .ai/federation/protocol/PROTOCOL-CONTRACT.yaml
+    audit: .ai/federation/protocol/AUDIT.jsonl
+    mode: deny_first_explicit_fallback
+  federation_transport:
+    channels: .ai/federation/transport/CHANNELS
+    inbox: .ai/federation/transport/INBOX
+    outbox: .ai/federation/transport/OUTBOX
+    audit: .ai/federation/transport/AUDIT.jsonl
+    mode: transport_agnostic_reference
+    confidentiality: false
+    authentication: Ed25519
+    integrity: true
+    anti_replay: true
+    session_binding: true
+  federation_confidential_transport:
+    channels: .ai/federation/secure/CHANNELS
+    inbox: .ai/federation/secure/INBOX
+    outbox: .ai/federation/secure/OUTBOX
+    keys: .ai/federation/secure/keys
+    audit: .ai/federation/secure/AUDIT.jsonl
+    mode: ephemeral_x25519_aead
+    confidentiality: true
+    cipher_suite: ChaCha20-Poly1305
+    key_agreement: X25519
+    kdf: HKDF-SHA256
+    forward_secrecy_orientation: ephemeral_per_epoch
+    no_static_session_keys: true

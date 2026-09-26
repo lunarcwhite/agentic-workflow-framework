@@ -1,0 +1,147 @@
+schema_version: '1.0'
+framework:
+  name: Universal AI Agent Framework
+  id: UAAF
+  version: 2.0.0
+protocols:
+  agent: UAP-1.0
+  context: CLE-1.0
+  intent: IRE-1.0
+  planning: APRE-1.0
+  memory: MEE-1.0
+  anti_slop: ASE-1.0
+  verification: VEE-1.0
+  reality: RCE-1.0
+  federation: UAAF-FED-2.0
+project:
+  name: Northstar
+  type: ''
+  maturity: existing
+  status: active
+agent:
+  autonomy_level: 3
+  mode: adaptive
+features:
+  memory: true
+  anti_slop: true
+  verification: true
+  replanning: true
+  session_handoff: true
+  traceability: true
+capabilities:
+  product: false
+  frontend: false
+  backend: false
+  api: false
+  database: false
+  ui: false
+  design_system: false
+  security: false
+  performance: false
+  deployment: false
+  mobile: false
+  data: false
+  testing: false
+  infrastructure: false
+planning:
+  evidence_first: true
+  max_replans_without_review: 2
+quality:
+  required_for_done:
+  - intent
+  - requirements
+  - acceptance_criteria
+  - verification
+  - scope
+anti_slop:
+  enabled: true
+  mode: contextual
+verification:
+  enabled: true
+  default_evidence_depth: risk_based
+sessions:
+  enabled: true
+  id_format: SES-YYYYMMDD-NNN
+source_of_truth:
+  current_implementation: repository
+  state: .ai/memory/STATE.md
+  memory: .ai/memory/entries
+  decisions: .ai/decisions
+  verification: .ai/verification
+profile: full
+extensions:
+  version: '2.0'
+  capabilities:
+    file: .ai/capabilities.yaml
+    mode: layered
+  context_impact:
+    file: .ai/context/IMPACT-GRAPH.yaml
+    mode: advisory
+  memory_compaction:
+    file: .ai/memory/compaction/README.md
+    mode: conservative
+  rce_strong:
+    file: .ai/health/RCE-STRONG.md
+    mode: snapshot_and_scan
+  git_traceability:
+    file: .ai/health/GIT-BASELINE.yaml
+    mode: read_only_baseline
+  claim_leasing:
+    file: .ai/agents/CLAIMS.yaml
+    mode: atomic_lease
+  runtime_verification:
+    file: .ai/verification/RUNTIME-POLICY.yaml
+    mode: allowlisted_subprocess
+  security_diagnostics:
+    file: .ai/security/SECURITY-DIAGNOSTICS.md
+    mode: static_read_only
+  git_task_traceability:
+    file: .ai/health/GIT-TASK-TRACEABILITY.md
+    mode: semantic_advisory
+  runtime_evidence:
+    file: .ai/verification/RUNTIME-EVIDENCE.md
+    mode: delivery_gate
+    required_for_risk:
+    - CRITICAL
+  observability:
+    policy: .ai/observability/POLICY.yaml
+    events: .ai/observability/EVENTS.jsonl
+    mode: metadata_first
+  adaptive_learning:
+    policy: .ai/optimization/POLICY.yaml
+    analysis: .ai/optimization/ANALYSIS.yaml
+    proposals: .ai/optimization/PROPOSALS.yaml
+    mode: advisory_only
+  governance:
+    policy: .ai/governance/POLICY.yaml
+    proposals: .ai/governance/PROPOSALS.yaml
+    audit: .ai/governance/AUDIT.jsonl
+    mode: explicit_approval
+  cryptographic_integrity:
+    root: .ai/trust/ROOT.yaml
+    keys: .ai/trust/KEYS.yaml
+    mode: signed_detached_ed25519
+    cryptographic_required: false
+    external_pin_required: false
+    required_purposes:
+    - trust-root
+    - trust-keys
+    - trust-policy
+    - delegations
+  agent_trust:
+    policy: .ai/agents/TRUST.yaml
+    delegations: .ai/agents/DELEGATIONS.yaml
+    audit: .ai/agents/TRUST-AUDIT.jsonl
+    mode: bounded_delegation
+  distributed_federation:
+    identity: .ai/federation/IDENTITY.yaml
+    peers: .ai/federation/PEERS.yaml
+    policy: .ai/federation/FEDERATION-POLICY.yaml
+    replay: .ai/federation/REPLAY.yaml
+    audit: .ai/federation/AUDIT.jsonl
+    state: .ai/federation/state
+    handoffs: .ai/federation/HANDOFFS
+    mode: transport_agnostic
+    default_deny: true
+    signed_handoff: true
+    signed_state: true

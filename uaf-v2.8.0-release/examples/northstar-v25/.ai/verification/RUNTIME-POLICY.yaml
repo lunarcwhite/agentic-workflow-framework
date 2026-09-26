@@ -1,0 +1,4 @@
+schema_version: '1.3'
+enabled: false
+allow: []
+notes: 'Enable only explicit, trusted commands; execution uses shell=False.'

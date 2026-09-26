@@ -1,0 +1,13 @@
+task_id: TASK-0000
+session_id: SES-YYYYMMDD-NNN
+agent_id: AGENT-CODE
+context_depth: 1
+estimated_tokens: null
+loaded: []
+excluded: []
+reasons: {}
+critical_context: []
+validated_against_reality: []
+usage:
+  used: []
+  unused: []

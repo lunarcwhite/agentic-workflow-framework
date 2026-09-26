@@ -1,0 +1,16 @@
+schema_version: '1.8'
+policy:
+  enabled: true
+  deny_actions: []
+agents:
+  - id: AGENT-HUMAN
+    status: ACTIVE
+    direct_authority: true
+    authority: ROOT
+    can_delegate: true
+    capabilities: ['*']
+    domains: ['*']
+    max_risk: CRITICAL
+    min_evidence: E0
+    min_recent_verified_evidence: 0
+    evidence_window_days: 30

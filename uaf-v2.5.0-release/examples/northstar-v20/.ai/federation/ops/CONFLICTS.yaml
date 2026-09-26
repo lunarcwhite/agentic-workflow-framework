@@ -1,0 +1,9 @@
+schema_version: '2.1'
+conflicts:
+- conflict_id: CF-359f0dd9615b
+  key: feature.flag
+  status: PROPOSED
+  resolution: disable
+  proposer: AGENT-A
+  evidence: EVD-100
+  proposed_at: '2026-09-26T01:03:26Z'

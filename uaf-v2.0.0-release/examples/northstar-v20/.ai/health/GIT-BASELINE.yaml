@@ -1,0 +1,8 @@
+schema_version: '1.3'
+generated_at: '2026-09-26T00:48:40+00:00'
+repository: /mnt/data/uaf-v2.0-work/examples/northstar-v20
+head: c81689a7057635f0a715849c82e5b53e5aa57594
+branch: master
+dirty: true
+dirty_paths:
+- .ai/context/IMPACT-GRAPH.yaml

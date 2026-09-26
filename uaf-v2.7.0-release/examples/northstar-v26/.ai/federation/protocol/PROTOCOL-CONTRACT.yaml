@@ -1,0 +1,5 @@
+schema_version: '2.4'
+status: UNNEGOTIATED
+peer_id: ''
+contract_hash: ''
+contract: {}

@@ -1,0 +1,27 @@
+id: TASK-0000
+type: FEATURE
+status: PLANNED
+scope:
+  level: FEATURE
+  domains: []
+  risk: LOW
+intent:
+  statement: ""
+  confidence: UNKNOWN
+  source: user
+requirements: []
+constraints: []
+non_goals: []
+acceptance_criteria: []
+verification: []
+expected_changes: []
+change_budget: {}
+context: []
+decisions: []
+memory_candidates: []
+related: []
+integrity:
+  intent_hash: ""
+  requirements_hash: ""
+  constraints_hash: ""
+  non_goals_hash: ""

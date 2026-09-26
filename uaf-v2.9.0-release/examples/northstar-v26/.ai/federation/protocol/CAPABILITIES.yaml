@@ -1,0 +1,47 @@
+schema_version: '2.4'
+project_id: ''
+peer_id: ''
+protocols:
+  federation:
+  - '2.0'
+  federation_ops:
+  - '2.1'
+  federation_intelligence:
+  - '2.2'
+  federation_policy:
+  - '2.3'
+  federation_protocol:
+  - '2.4'
+features:
+  capability-exchange:
+    required: true
+    optional: false
+    fallback_safe: true
+    min_protocol:
+      federation_protocol: '2.4'
+  protocol-negotiation:
+    required: true
+    optional: false
+    fallback_safe: true
+    min_protocol:
+      federation_protocol: '2.4'
+  safe-fallback:
+    required: false
+    optional: true
+    fallback_safe: true
+    min_protocol:
+      federation_protocol: '2.4'
+  confidential-transport:
+    required: false
+    optional: true
+    fallback_safe: false
+    min_protocol:
+      federation_protocol: '2.4'
+security:
+  min_evidence: E3
+  require_signed_offer: true
+  require_signed_contract: true
+compatibility:
+  fallbacks:
+    federation_protocol:
+    - '2.3'

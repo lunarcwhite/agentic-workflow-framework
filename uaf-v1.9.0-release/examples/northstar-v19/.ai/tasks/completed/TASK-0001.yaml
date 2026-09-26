@@ -1,0 +1,61 @@
+id: TASK-0001
+type: FEATURE
+status: COMPLETED
+scope:
+  level: FEATURE
+  domains:
+  - BACKEND
+  risk: LOW
+intent:
+  statement: Allow callers to safely request task completion more than once without
+    changing the result or introducing an error.
+  confidence: HIGH
+  source: user
+requirements:
+- id: REQ-001
+  priority: MUST
+  statement: complete_task marks an incomplete task as completed.
+- id: REQ-002
+  priority: MUST
+  statement: Calling complete_task on an already completed task leaves it completed
+    and does not create a new state transition.
+constraints:
+- id: CON-001
+  statement: Keep the change dependency-free.
+- id: CON-002
+  statement: Reuse the existing Task model.
+non_goals:
+- Persistence redesign.
+- API redesign.
+acceptance_criteria:
+- id: AC-001
+  given: an incomplete task
+  when: complete_task is called
+  then: completed becomes true
+- id: AC-002
+  given: a completed task
+  when: complete_task is called
+  then: the task remains completed
+verification:
+- method: python -m pytest test_src.py
+  evidence: EVD-0001
+expected_changes:
+  files:
+  - src.py
+  - test_src.py
+  modules:
+  - task-service
+change_budget:
+  mode: strict
+  statement: Only the task completion implementation and directly related tests.
+context: []
+decisions:
+- DEC-0001
+memory_candidates:
+- MEM-0001
+related: []
+integrity:
+  intent_hash: 49ad8edf3691174cdb44969d6fae9bff0f1128a181ba7f96ab83bd4bac00531a
+  requirements_hash: 1d38c5aca7fd81e29cf919f5f56ffd671c263bccc94040b7bd00e70b26ff358c
+  constraints_hash: 2437e0b19d3fff9b19ce0534f29d82166a3fd157ddbab3bf9ba1ac57039f41f0
+  non_goals_hash: 186ab6c1b2f7b9375c5d188c6a0c0879791a24fab110e65fa17f57cc49699218

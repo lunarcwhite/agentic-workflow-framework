@@ -1,0 +1,29 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Testing and coverage
+.pytest_cache/
+.coverage
+htmlcov/
+.ruff_cache/
+
+# Security & Private Key exclusions (UAAF Security Invariant)
+*.pem
+*.key
+keys/
+.keys/
+
+# Temporary directories and files
+tmp/
+temp/
+tmp-*/
+*.tmp
+*.log
+
+# OS & Editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
