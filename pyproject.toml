@@ -46,6 +46,10 @@ keychain = [
 test = [
     "pytest>=7.0.0",
 ]
+dev = [
+    "pytest>=7.0.0",
+    "ruff>=0.1.0",
+]
 
 [project.scripts]
 uaf = "tools.uaf:main"
@@ -59,3 +63,10 @@ Changelog = "https://github.com/lunarcwhite/universal-agent-framework/blob/main/
 [tool.setuptools.packages.find]
 where = ["."]
 include = ["tools*"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E9", "F63", "F7", "F82"]

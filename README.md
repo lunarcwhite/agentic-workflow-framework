@@ -10,7 +10,61 @@ UAAF is an open protocol, reference knowledge scaffold, and secure runtime for a
 
 ---
 
+## 🏛️ Architecture & Core Lifecycle
+
+### 1. Deterministic Agent Execution Lifecycle
+
+```mermaid
+flowchart TD
+    subgraph Gov["1. Governance & Contract"]
+        TC["📄 Task Contract<br/>(task-contract.yaml)"] --> AG["⚖️ Golden Rules & Invariants<br/>(Inspect · Search · Bounded Scope)"]
+    end
+
+    subgraph Exec["2. Kernel Execution"]
+        AG --> AK["🤖 Agent Kernel<br/>(Code Edits · Tool Actions)"]
+        AK --> QG{"🧪 Conformance & Quality Gates<br/>(uaf check / test suites)"}
+    end
+
+    subgraph Verif["3. Verifiable Receipts"]
+        QG -- PASS --> ER["🧾 Evidence Receipt<br/>(evidence-receipt.yaml)"]
+        ER --> CR["📊 Context Receipt<br/>(Token Accounting & Economics)"]
+    end
+
+    subgraph Cont["4. Compaction & Continuity"]
+        CR --> MC["🧠 Memory Compactor<br/>(Lossless State Compaction)"]
+        MC --> HO["📋 Structured Handoff<br/>(Durable Memory for Next Agent)"]
+    end
+```
+
+### 2. Federated Multi-Agent Cryptographic Boundary
+
+```mermaid
+flowchart LR
+    subgraph NodeA["Local Agent Node A"]
+        A_Kernel["Agent Kernel A"]
+        A_Custody["Key Custody Provider<br/>(Filesystem / Keychain / KMS)"]
+        A_Kernel <--> A_Custody
+    end
+
+    subgraph Transport["Confidential Federation Boundary"]
+        HS["Ephemeral Handshake<br/>(X25519 + Signed Nonce)"]
+        ENC["E2E Encrypted Channel<br/>(ChaCha20-Poly1305)"]
+        HS --> ENC
+    end
+
+    subgraph NodeB["Remote Peer Node B"]
+        B_Kernel["Agent Kernel B"]
+        B_Custody["Key Custody Provider<br/>(Non-Secret Key Reference)"]
+        B_Kernel <--> B_Custody
+    end
+
+    A_Kernel <==> Transport <==> B_Kernel
+```
+
+---
+
 ## ⚡ Quick Start
+
 
 ### Installation
 

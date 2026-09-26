@@ -96,11 +96,10 @@ def check(root):
     required=[INTEL/'CONFLICT-ANALYSIS.yaml', INTEL/'CHECKPOINT-SELECTION.yaml', INTEL/'RECOVERY-RECOMMENDATION.yaml']
     for path in required:
         if path.exists():
-            doc=load(root/path,{})
-            if str(doc.get('schema_version'))!=SCHEMA: issues.append(f'SCHEMA_MISMATCH:{path.relative_to(root)}')
-    for path in [POLICY_DIR if False else root/(INTEL/'README.md')]:
-        pass
-    return {'status':'PASS' if not issues else 'FAIL','issues':issues,'advisory_only':True}
+            doc = load(root / path, {})
+            if str(doc.get('schema_version')) != SCHEMA:
+                issues.append(f'SCHEMA_MISMATCH:{path.relative_to(root)}')
+    return {'status': 'PASS' if not issues else 'FAIL', 'issues': issues, 'advisory_only': True}
 
 def recovery_recommend(root):
     status=load(root/(OPS/'MODE.yaml'),{}).get('mode','ONLINE')
