@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark light">
+  <title>UAAF — Universal AI Agent Framework | Open Protocol & Secure Runtime</title>
+  <meta name="description" content="An open protocol, reference knowledge scaffold, and secure runtime for autonomous AI coding agents. Enforce anti-slop constraints, anchor verifiable evidence, and enable decentralized federation.">
+  <meta name="keywords" content="AI, Agent Framework, LLM, Autonomous Coding, Anti-Slop, Agent Federation, Verification, LangChain, Cursor, Claude Code">
+  
+  <!-- Open Graph / Social Sharing -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Universal AI Agent Framework (UAAF)">
+  <meta property="og:description" content="The deterministic open protocol and runtime for autonomous AI coding agents.">
+  <meta property="og:url" content="https://lunarcwhite.github.io/universal-agent-framework/">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  
+  <!-- Google Fonts: Plus Jakarta Sans, Inter, JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Modern Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+  
+  <!-- FOUC prevention for color-scheme -->
+  <script>
+    (function() {
+      const saved = localStorage.getItem('uaaf-theme') || 'dark';
+      document.documentElement.setAttribute('data-theme', saved);
+    })();
+  </script>
+</head>
+<body>
+
+  <!-- Top Sticky Navigation -->
+  <header class="site-header" id="top">
+    <div class="container nav-wrap">
+      <a href="#top" class="brand-logo" aria-label="UAAF Home">
+        <img src="favicon.svg" alt="UAAF Logo" class="brand-icon">
+        <span class="brand-title">UAAF</span>
+      </a>
+
+      <nav aria-label="Primary Navigation">
+        <ul class="nav-links">
+          <li><a href="#features" class="nav-link">Pillars</a></li>
+          <li><a href="#terminal" class="nav-link">Live Terminal</a></li>
+          <li><a href="#architecture" class="nav-link">Architecture</a></li>
+          <li><a href="#quickstart" class="nav-link">Quickstart</a></li>
+          <li><a href="https://github.com/lunarcwhite/universal-agent-framework/blob/main/spec/UAAF-v1.0-MASTER-SPEC.md" class="nav-link" target="_blank" rel="noopener">Specs</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <button id="theme-toggle-btn" class="btn-theme-toggle" aria-label="Toggle theme">
+          <!-- Injected via app.js -->
+        </button>
+
+        <a href="https://github.com/lunarcwhite/universal-agent-framework" target="_blank" rel="noopener" class="btn-gh">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
+          </svg>
+          <span>Star on GitHub</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <div class="container">
+        <div class="hero-badge-wrap">
+          <div class="hero-badge">
+            <span class="badge-dot"></span>
+            <span>v3.0.1 Released · Zero-Warning Conformance</span>
+          </div>
+        </div>
+
+        <h1 class="hero-title">
+          The Open Protocol & Secure Runtime for <br class="desktop-only">
+          <span class="gradient-title">Autonomous AI Coding Agents</span>
+        </h1>
+
+        <p class="hero-lead">
+          Eliminate generative hallucinations, stop silent scope drift, and anchor verifiable evidence. UAAF provides a deterministic knowledge scaffold and peer-to-peer confidential federation for agentic software engineering.
+        </p>
+
+        <div class="hero-cta-group">
+          <a href="#quickstart" class="btn-primary">
+            <span>Get Started</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+          </a>
+          <a href="https://github.com/lunarcwhite/universal-agent-framework" target="_blank" rel="noopener" class="btn-secondary">
+            <span>Explore Repository</span>
+          </a>
+        </div>
+
+        <!-- Quick Copy CLI Box -->
+        <div class="cli-box">
+          <div class="cli-command">
+            <span class="cli-prompt">$</span>
+            <span id="cli-cmd-text">pip install -e . &amp;&amp; uaf init my-project --profile standard</span>
+          </div>
+          <button class="btn-copy js-copy-btn" data-clipboard="pip install -e . &amp;&amp; uaf init my-project --profile standard" aria-label="Copy CLI install command">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            <span>Copy</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interactive Terminal Simulator -->
+    <section class="terminal-section" id="terminal">
+      <div class="container">
+        <div class="terminal-window">
+          <div class="terminal-header">
+            <div class="terminal-controls">
+              <span class="control-dot dot-red"></span>
+              <span class="control-dot dot-yellow"></span>
+              <span class="control-dot dot-green"></span>
+            </div>
+            <div class="terminal-tabs">
+              <button class="term-tab active" data-target="term-out-doctor">uaf doctor</button>
+              <button class="term-tab" data-target="term-out-check">uaf check</button>
+              <button class="term-tab" data-target="term-out-federation">uaf federation</button>
+            </div>
+            <div style="width: 50px;"></div>
+          </div>
+
+          <div class="terminal-body">
+            <!-- Output 1: Doctor -->
+            <div id="term-out-doctor" class="term-output active">
+              <span class="tok-cmd">$ uaf doctor ./my-service --verbose</span><br>
+              <span class="tok-dim">[10:14:02]</span> <span class="tok-info">INSPECT</span> Reading project manifest at .ai/manifest.yaml...<br>
+              <span class="tok-dim">[10:14:02]</span> <span class="tok-info">INSPECT</span> Validating core archetype: <span class="tok-pass">service (v3.0.1)</span><br>
+              <span class="tok-dim">[10:14:03]</span> <span class="tok-info">CHECK</span> Quality gates and definition-of-done... <span class="tok-pass">[OK]</span><br>
+              <span class="tok-dim">[10:14:03]</span> <span class="tok-info">CHECK</span> Anti-slop invariants and scope constraints... <span class="tok-pass">[OK]</span><br>
+              <span class="tok-dim">[10:14:03]</span> <span class="tok-info">CHECK</span> Active claims leasing and git traceability... <span class="tok-pass">[OK]</span><br>
+              <br>
+              <span class="tok-pass">========================================================</span><br>
+              <span class="tok-pass">STATUS: HEALTHY (0 errors, 0 warnings, conformance passed)</span><br>
+              <span class="tok-pass">========================================================</span>
+            </div>
+
+            <!-- Output 2: Check -->
+            <div id="term-out-check" class="term-output">
+              <span class="tok-cmd">$ uaf check ./my-service</span><br>
+              <span class="tok-dim">[10:15:10]</span> Validating task contracts in .ai/tasks/...<br>
+              <span class="tok-dim">[10:15:10]</span> Inspecting evidence receipts in .ai/evidence/...<br>
+              <span class="tok-dim">[10:15:11]</span> Verifying test output assertion hash: <span class="tok-info">sha256:7f8a9e...</span><br>
+              <span class="tok-dim">[10:15:11]</span> Token usage economics logged: <span class="tok-info">1,420 tokens recorded</span><br>
+              <br>
+              <span class="tok-pass">V3.0.1 ALL ARCHETYPES + CONFORMANCE CHECKS PASSED</span>
+            </div>
+
+            <!-- Output 3: Federation -->
+            <div id="term-out-federation" class="term-output">
+              <span class="tok-cmd">$ uaf federation open --peer node-beta.internal --channel-id SC-9042</span><br>
+              <span class="tok-dim">[10:16:01]</span> <span class="tok-info">AUTH</span> Resolving non-secret key ref via custody provider: <span class="tok-pass">filesystem</span><br>
+              <span class="tok-dim">[10:16:01]</span> <span class="tok-info">CRYPTO</span> Generating ephemeral X25519 keypair for session...<br>
+              <span class="tok-dim">[10:16:02]</span> <span class="tok-info">HANDSHAKE</span> Mutual signature exchange with node-beta... <span class="tok-pass">[VERIFIED]</span><br>
+              <span class="tok-dim">[10:16:02]</span> <span class="tok-info">CHANNEL</span> Establishing ChaCha20-Poly1305 encrypted session...<br>
+              <span class="tok-pass">CONFIDENTIAL CHANNEL ESTABLISHED (Session Key: e2ee-active)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4 Core Pillars Section -->
+    <section class="features-section" id="features">
+      <div class="container">
+        <div class="section-head">
+          <div class="section-tag">Core Axioms</div>
+          <h2 class="section-title">Built for Reliability, Bounded by Design</h2>
+          <p class="section-desc">
+            Autonomous agents fail when given unconstrained autonomy. UAAF turns chaotic generative guessing into predictable, contract-driven engineering.
+          </p>
+        </div>
+
+        <div class="features-grid">
+          <!-- Card 1 -->
+          <article class="feature-card">
+            <div class="card-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <h3 class="card-title">Anti-Slop Invariants</h3>
+            <p class="card-desc">
+              Strictly prohibits silent scope creep, fake completion claims, and lazy placeholders (<code>// TODO</code>). Forces agents to understand existing code before inventing new abstractions.
+            </p>
+          </article>
+
+          <!-- Card 2 -->
+          <article class="feature-card">
+            <div class="card-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+            </div>
+            <h3 class="card-title">Verifiable Evidence Receipts</h3>
+            <p class="card-desc">
+              No task can be marked complete based on conversational assertions alone. Agents must anchor reproducible command outputs, exit codes, and test logs into tamper-evident receipts.
+            </p>
+          </article>
+
+          <!-- Card 3 -->
+          <article class="feature-card">
+            <div class="card-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+            </div>
+            <h3 class="card-title">Lossless State Compactor</h3>
+            <p class="card-desc">
+              Prevents long-horizon context degradation. Compresses token-heavy trajectories into structured durable states, enabling seamless handoffs across unlimited agent turns.
+            </p>
+          </article>
+
+          <!-- Card 4 -->
+          <article class="feature-card">
+            <div class="card-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            </div>
+            <h3 class="card-title">Confidential Federation</h3>
+            <p class="card-desc">
+              Enables decentralized multi-agent collaboration with X25519 ephemeral handshakes, ChaCha20-Poly1305 authenticated encryption, and abstracted key custody providers.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Architecture Section -->
+    <section class="arch-section" id="architecture">
+      <div class="container">
+        <div class="section-head">
+          <div class="section-tag">Deterministic Flow</div>
+          <h2 class="section-title">The Deterministic Agent Lifecycle</h2>
+          <p class="section-desc">
+            How UAAF guides an agent from instruction to verifiable delivery without human micro-management.
+          </p>
+        </div>
+
+        <div class="lifecycle-steps">
+          <div class="step-card">
+            <div class="step-num">STEP 01</div>
+            <h4 class="step-title">Task Contract</h4>
+            <p class="step-desc">Explicit goals, permitted file scopes, and acceptance criteria defined in <code>task-contract.yaml</code>.</p>
+          </div>
+
+          <div class="step-card">
+            <div class="step-num">STEP 02</div>
+            <h4 class="step-title">Kernel Execution</h4>
+            <p class="step-desc">Agent works bounded by Golden Axioms: Understand &gt; Inspect &gt; Search &gt; Reuse &gt; Minimal Edits.</p>
+          </div>
+
+          <div class="step-card">
+            <div class="step-num">STEP 03</div>
+            <h4 class="step-title">Quality Gates</h4>
+            <p class="step-desc">Conformance checks run automatically via <code>uaf check</code> to confirm zero regressions.</p>
+          </div>
+
+          <div class="step-card">
+            <div class="step-num">STEP 04</div>
+            <h4 class="step-title">Evidence Receipts</h4>
+            <p class="step-desc">Execution proof and token economics are logged deterministically in <code>evidence-receipt.yaml</code>.</p>
+          </div>
+
+          <div class="step-card">
+            <div class="step-num">STEP 05</div>
+            <h4 class="step-title">Durable Handoff</h4>
+            <p class="step-desc">State compactor persists durable memory for the next agent session without context bloat.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Quickstart Section -->
+    <section class="quickstart-section" id="quickstart">
+      <div class="container">
+        <div class="section-head">
+          <div class="section-tag">Developer Setup</div>
+          <h2 class="section-title">Get Started in 60 Seconds</h2>
+          <p class="section-desc">
+            Install the CLI or use UAAF purely as a prompt-and-scaffold protocol without any Python runtime.
+          </p>
+        </div>
+
+        <div class="code-window">
+          <div class="code-tabs">
+            <button class="code-tab-btn active" data-tab="tab-cli">With Python CLI (Recommended)</button>
+            <button class="code-tab-btn" data-tab="tab-nopy">Pure Scaffold (No Python)</button>
+            <button class="code-tab-btn" data-tab="tab-federation">Multi-Agent Federation</button>
+          </div>
+
+          <div id="tab-cli" class="code-content active">
+            <span class="tok-dim"># 1. Clone repository &amp; install CLI globally in editable mode</span><br>
+            <span class="tok-cmd">git clone https://github.com/lunarcwhite/universal-agent-framework.git</span><br>
+            <span class="tok-cmd">cd universal-agent-framework</span><br>
+            <span class="tok-cmd">pip install -e .</span><br>
+            <br>
+            <span class="tok-dim"># 2. Initialize UAAF in your target project</span><br>
+            <span class="tok-cmd">uaf init ./my-project --profile standard --auto-detect</span><br>
+            <br>
+            <span class="tok-dim"># 3. Check health and run conformance verification</span><br>
+            <span class="tok-cmd">uaf doctor ./my-project</span><br>
+            <span class="tok-cmd">uaf check ./my-project</span>
+          </div>
+
+          <div id="tab-nopy" class="code-content">
+            <span class="tok-dim"># Works for Node.js, Go, Rust, Java, PHP, or any non-Python codebase!</span><br>
+            <span class="tok-dim"># 1. Copy the knowledge scaffold directly into your project root:</span><br>
+            <span class="tok-cmd">cp -r scaffold/.ai/ ./my-project/.ai/</span><br>
+            <span class="tok-cmd">cp AGENTS.md ./my-project/AGENTS.md</span><br>
+            <br>
+            <span class="tok-dim"># 2. Your AI coding editor (Cursor, Antigravity, Claude Code, Windsurf)</span><br>
+            <span class="tok-dim"># will read AGENTS.md and .ai/ natively — zero dependencies required!</span>
+          </div>
+
+          <div id="tab-federation" class="code-content">
+            <span class="tok-dim"># Initialize full Federated Agent Runtime (v3.0.1)</span><br>
+            <span class="tok-cmd">uaf init ./node-alpha --profile full --extension v3.0.1</span><br>
+            <br>
+            <span class="tok-dim"># Check provider key custody &amp; open encrypted channel</span><br>
+            <span class="tok-cmd">uaf key-storage check ./node-alpha</span><br>
+            <span class="tok-cmd">uaf federation open ./node-alpha --peer node-beta.domain --channel-id SC-9042</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="brand-logo">
+            <img src="favicon.svg" alt="UAAF Logo" class="brand-icon">
+            <span class="brand-title">UAAF</span>
+          </div>
+          <p class="footer-brand-desc">
+            Universal AI Agent Framework — open protocol, deterministic governance, and confidential runtime for autonomous software agents.
+          </p>
+        </div>
+
+        <div>
+          <h4 class="footer-col-title">Documentation</h4>
+          <ul class="footer-links">
+            <li><a href="https://github.com/lunarcwhite/universal-agent-framework/blob/main/README.md" target="_blank" rel="noopener">README Guide</a></li>
+            <li><a href="https://github.com/lunarcwhite/universal-agent-framework/blob/main/spec/UAAF-v1.0-MASTER-SPEC.md" target="_blank" rel="noopener">Master Specification</a></li>
+            <li><a href="https://github.com/lunarcwhite/universal-agent-framework/blob/main/spec/UAAF-v2.0-MASTER-SPEC.md" target="_blank" rel="noopener">v2.0 Federation Spec</a></li>
+            <li><a href="https://github.com/lunarcwhite/universal-agent-framework/blob/main/spec/UAAF-v3.0-MASTER-ADDENDUM.md" target="_blank" rel="noopener">v3.0 Runtime Addendum</a></li>
+            <li><a href="https://github.com/lunarcwhite/universal-agent-framework/tree/main/reports" target="_blank" rel="noopener">54 Validation Reports</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-col-title">Community &amp; Trust</h4>
+          <ul class="footer-links">
+            <li><a href="https://github.com/lunarcwhite/universal-agent-framework/blob/main/SECURITY.md" target="_blank" rel="noopener">Security Policy</a></li>
+            <li><a href="https://github.com/lunarcwhite/universal-agent-framework/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener">Contributing Guide</a></li>
+            <li><a href="https://github.com/lunarcwhite/universal-agent-framework/blob/main/CODE_OF_CONDUCT.md" target="_blank" rel="noopener">Code of Conduct</a></li>
+            <li><a href="https://github.com/lunarcwhite/universal-agent-framework/blob/main/LICENSE" target="_blank" rel="noopener">MIT License</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-col-title">GitHub Releases</h4>
+          <ul class="footer-links">
+            <li><a href="https://github.com/lunarcwhite/universal-agent-framework/releases" target="_blank" rel="noopener">23 Release Tags</a></li>
+            <li><a href="https://github.com/lunarcwhite/universal-agent-framework/blob/main/CHANGELOG.md" target="_blank" rel="noopener">Changelog</a></li>
+            <li><a href="https://github.com/lunarcwhite/universal-agent-framework/issues" target="_blank" rel="noopener">Issue Tracker</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>&copy; 2026 Universal AI Agent Framework. Open Source under the MIT License.</div>
+        <div>Engineered for autonomous AI agents.</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification element for copy feedback -->
+  <div id="toast-notification" class="toast-msg" role="status" aria-live="polite"></div>
+
+  <!-- Client-side script -->
+  <script src="app.js"></script>
+</body>
+</html>

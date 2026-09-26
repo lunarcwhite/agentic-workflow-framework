@@ -1,6 +1,7 @@
 # Universal AI Agent Framework (UAAF)
 
 [![CI](https://github.com/lunarcwhite/universal-agent-framework/actions/workflows/ci.yml/badge.svg)](https://github.com/lunarcwhite/universal-agent-framework/actions/workflows/ci.yml)
+[![Website](https://img.shields.io/badge/website-live-cyan.svg)](https://lunarcwhite.github.io/universal-agent-framework/)
 [![Release](https://img.shields.io/github/v/release/lunarcwhite/universal-agent-framework?color=blue&label=release)](https://github.com/lunarcwhite/universal-agent-framework/releases)
 [![Python](https://img.shields.io/badge/python-3.9%20%7C%203.10%20%7C%203.11%20%7C%203.12-blue)](https://www.python.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
@@ -102,6 +103,7 @@ uaf --help
 | :--- | :--- |
 | [`tools/`](./tools) | Distribution CLI (`uaf`), initializer, validators, memory compaction, and federation runtime. |
 | [`scaffold/`](./scaffold) | Project-side template (`.ai/`) provisioned into user projects. |
+| [`docs/`](./docs) | Official landing page & interactive documentation hosted on GitHub Pages. |
 | [`spec/`](./spec) | Normative specifications (`UAAF-v1.0-MASTER-SPEC.md`, `v2.0`, `v3.0-ADDENDUM.md`, etc.). |
 | [`templates/`](./templates) | Standardized task contracts, evidence receipts, context receipts, and handoffs. |
 | [`tests/`](./tests) | Conformance test suite, longitudinal tests, and field archetype validations. |
