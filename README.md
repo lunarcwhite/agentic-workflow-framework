@@ -509,3 +509,72 @@ Provider-backed key operations: signing resolves key references through the acti
 ## v2.9.0 — Secure Key Operations
 
 v2.9 turns v2.8 custody into an operational signing boundary. Use `uaf key-ops bind`, `sign`, `verify`, and `rotate`. Federation confidential-channel `open`, `accept`, and `resume` accept `--key-ref`; the legacy `--private-key` interface remains available for compatibility.
+
+## UAAF v3.0.0 — Decentralized Multi-Agent Federation Runtime
+
+UAAF v3.0 introduces Protocol `UAAF-FED-3.0`, providing cryptographic multi-agent federation:
+- Cryptographic execution leases signed by custody-backed agent roots.
+- Signed execution receipts verified against origin-side deliverable policies.
+- Confidential transport layer with forward secrecy and tamper-proof hash chains.
+- Zero mock stubs: all federation claims backed by verifiable cryptographic evidence.
+
+## UAAF v3.1.0 — Team Orchestration & Multi-Agent Architecture (`uaf team`)
+
+Protocol `UAAF-TEAM-1.0` enables collision-free collaboration across heterogeneous coding harnesses:
+- **6 Architectural Patterns**: `pipeline`, `producer_reviewer`, `fan_out_fan_in`, `expert_pool`, `supervisor`, `hierarchical`.
+- **Disjoint Perimeter Invariant**: Automatic task decomposition strictly enforcing non-overlapping file scopes ($\text{permitted}(A) \cap \text{permitted}(B) = \emptyset$).
+- **Atomic Claims Leasing**: File-level write locks managed via `.claims.lock`.
+- **Multi-Target Exporter**: Export team definitions and agent personas to Claude Code (`.claude/`), Google Antigravity (`.agents/`), Cursor (`.cursor/`), and Pi (`.pi/`).
+
+```bash
+# Compose a multi-agent team with disjoint perimeters
+python tools/uaf.py team compose "Build high-performance REST API with authentication" --pattern pipeline
+
+# Export personas to all agent harnesses
+python tools/uaf.py team export --target all
+```
+
+## UAAF v3.2.0 — Agentic Plugin Marketplace & Domain Specialists (`uaf plugin`)
+
+Protocol `UAAF-PLUGIN-1.0` connects UAAF to open agent ecosystems (e.g., `wshobson/agents`):
+- **Package Management**: Browse catalog with `uaf plugin list`, search skills with `uaf plugin search`, and install packages with `uaf plugin install`.
+- **Mandatory Governance Anchoring**: Auto-injects `GOVERNANCE.md` and generates verifiable evidence receipts (`EV-PLUGIN-<HASH>.yaml`).
+- **Dynamic Role Discovery**: Team orchestrator detects installed plugins and promotes domain specialists (`fastapi_pro`, `react_pro`, `postgresql_dba`, `devops_engineer`, etc.).
+- **Multi-Target Export**: Expose installed plugins directly to Claude Code, Antigravity, Cursor, and Pi.
+
+```bash
+# Search and install specialized domain capabilities
+python tools/uaf.py plugin search fastapi
+python tools/uaf.py plugin install python-development
+python tools/uaf.py plugin export python-development --target all
+```
+
+## UAAF v3.3.0 — Native Landing Page Architecture & Automated SEO Governance (`uaf seo`)
+
+Protocol `UAAF-SEO-1.0` delivers native, production-grade landing page design and automated search governance:
+- **2-Part Native Landing Page Framework**:
+  - *Part A (Strategy & Structure)*: Intake discovery, 12-section conversion hierarchy (Hero, Social Proof, PAS Problem/Solution, Features, How It Works, Testimonials, Pricing, FAQ, CTA, Footer), copywriting formulas (PAS/AIDA), and sequential build order.
+  - *Part B (Non-negotiable Visual System)*: Modern typography (Geist, Manrope, Plus Jakarta Sans), balanced text-wrap (`text-wrap: balance`), tokenized modular type scale, and flat cards with full perimeter borders.
+- **Automated SEO & AEO Quality Gates (`uaf seo audit`)**:
+  - Deterministic audit verifying 8 quality checks: `<title>` length, `<meta name="description">` length, mobile viewport, `<link rel="canonical">`, OpenGraph & Twitter Cards, single `<h1>` hierarchy, image `alt` attributes, and Schema.org JSON-LD blocks.
+- **Standards-Compliant Schema Generator (`uaf seo generate`)**:
+  - Generates valid Schema.org JSON-LD structured data for `SoftwareApplication`, `Organization`, `WebSite`, and `FAQPage`.
+- **Native Multi-Agent Roles & Pre-bundled Package**:
+  - Shipped with built-in `landing-page-seo` plugin containing `landing-page-design` and `technical-seo` skills.
+  - Automatic promotion of `landing_page_pro` and `seo_specialist` roles inside `uaf team compose` with disjoint perimeters.
+
+```bash
+# Audit HTML page for SEO & accessibility (Threshold 80)
+python tools/uaf.py seo audit docs/index.html
+
+# Generate Schema.org structured data
+python tools/uaf.py seo generate --type SoftwareApplication --name "UAAF" --url "https://uaaf.dev" --desc "AI Agent Framework"
+
+# Install and govern the landing-page-seo package
+python tools/uaf.py plugin install landing-page-seo
+python tools/uaf.py plugin export landing-page-seo --target all
+
+# Compose a multi-agent team for landing page & SEO
+python tools/uaf.py team compose "Build high-converting landing page with technical SEO"
+```
+
