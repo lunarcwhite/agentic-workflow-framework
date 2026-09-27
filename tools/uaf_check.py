@@ -1968,13 +1968,13 @@ def validate_v29_extensions(root: Path, manifest: dict, errors: list[str], warni
 
 def validate_v30_extensions(root: Path, manifest: dict, errors: list[str], warnings: list[str]):
     ext = manifest.get("extensions") or {}
-    if str(ext.get("version", "0")) not in {"3.0", "3.0.1"}:
+    if str(ext.get("version", "0")) not in {"3.0", "3.0.1", "3.1", "3.1.0"}:
         return
     if str(manifest.get("profile", "")).lower() != "full":
         errors.append("CONF-V30-001 UAAF v3.0 federated runtime requires full profile")
     framework_version = str((manifest.get("framework") or {}).get("version", ""))
-    if framework_version not in {"3.0.0", "3.0.1"}:
-        errors.append("CONF-V30-002 framework.version must be 3.0.0 or 3.0.1")
+    if framework_version not in {"3.0.0", "3.0.1", "3.1.0"}:
+        errors.append("CONF-V30-002 framework.version must be 3.0.0, 3.0.1, or 3.1.0")
     protocols = manifest.get("protocols") or {}
     inherited = {
         "federation": "UAAF-FED-2.0",
@@ -2107,6 +2107,39 @@ def validate_v30_extensions(root: Path, manifest: dict, errors: list[str], warni
         errors.append(f"CONF-V30-028 private-key material under runtime: {private.relative_to(root)}")
 
 
+def validate_v31_extensions(root: Path, manifest: dict, errors: list[str], warnings: list[str]):
+    ext = manifest.get("extensions") or {}
+    ext_version = str(ext.get("version", "0"))
+    if ext_version not in {"3.1", "3.1.0"}:
+        return
+    protocols = manifest.get("protocols") or {}
+    if str(protocols.get("team_orchestrator", "")) != "UAAF-TEAM-1.0":
+        errors.append("CONF-V31-001 protocols.team_orchestrator must be UAAF-TEAM-1.0")
+    team_ext = ext.get("team_orchestrator") or {}
+    if not team_ext:
+        errors.append("CONF-V31-002 extensions.team_orchestrator missing")
+    if team_ext.get("mode") != "disjoint_task_contract_claims_export":
+        errors.append("CONF-V31-003 extensions.team_orchestrator mode mismatch")
+
+    team_file_rel = team_ext.get("team_file", ".ai/agents/TEAM.yaml")
+    team_file = root / team_file_rel
+    if team_file.exists():
+        try:
+            team_data = yaml.safe_load(team_file.read_text(encoding="utf-8")) or {}
+            if str(team_data.get("schema_version", "")) != "3.1":
+                errors.append("CONF-V31-004 TEAM.yaml schema_version must be 3.1")
+            members = team_data.get("members", [])
+            seen_files: dict[str, str] = {}
+            for member in members:
+                for f in member.get("permitted_files", []):
+                    if f in seen_files:
+                        errors.append(f"CONF-V31-005 overlapping permitted_files '{f}' between {seen_files[f]} and {member.get('role')}")
+                    else:
+                        seen_files[f] = member.get("role")
+        except Exception as e:
+            errors.append(f"CONF-V31-006 failed to parse TEAM.yaml: {e}")
+
+
 def check(path: Path, level: str = "standard", pinned_root_fingerprint: str | None = None) -> tuple[list[str], list[str], list[str]]:
     root = path.resolve()
     errors: list[str] = []
@@ -2154,6 +2187,7 @@ def check(path: Path, level: str = "standard", pinned_root_fingerprint: str | No
         validate_v29_extensions(root, manifest, errors, warnings)
     else:
         validate_v30_extensions(root, manifest, errors, warnings)
+        validate_v31_extensions(root, manifest, errors, warnings)
 
     # Placeholder warning in stable kernel files.
     for rel in [".ai/core/CONTEXT.md", ".ai/core/CONVENTIONS.md"]:

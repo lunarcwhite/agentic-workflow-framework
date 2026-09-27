@@ -43,10 +43,18 @@ COMMANDS = {
     "key-storage": "uaf_key_storage.py",
     "key-ops": "uaf_key_ops.py",
     "federation-runtime": "uaf_federation_runtime.py",
+    "team": "uaf_team.py",
 }
 
 
 def main() -> None:
+    if len(sys.argv) > 1 and sys.argv[1] in COMMANDS:
+        cmd = sys.argv[1]
+        rest = sys.argv[2:]
+        sys.argv = [str(ROOT / COMMANDS[cmd]), *rest]
+        runpy.run_path(str(ROOT / COMMANDS[cmd]), run_name="__main__")
+        return
+
     parser = argparse.ArgumentParser(prog="uaf", description="Universal AI Agent Framework CLI")
     parser.add_argument("command", choices=sorted(COMMANDS))
     args, rest = parser.parse_known_args()

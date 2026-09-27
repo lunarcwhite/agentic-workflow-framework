@@ -1,5 +1,25 @@
 # Changelog
 
+## v3.1.0 — 2026-09-27
+
+- **Team-Architecture Factory & Multi-Agent Orchestrator (`uaf team`)**: Introduced protocol `UAAF-TEAM-1.0` enabling simultaneous, collision-free multi-agent coordination across heterogeneous coding tools (Claude Code, Antigravity, Cursor, and Pi).
+- **Six Architectural Patterns**:
+  - `pipeline`: Sequential execution chain with feed-forward context receipts.
+  - `producer_reviewer`: Paired dual-agent loop with mandatory evidence verification.
+  - `fan_out_fan_in`: High-throughput parallel domain decomposition with synchronized integration.
+  - `expert_pool`: Subsystem-driven task routing to specialized domain experts.
+  - `supervisor`: Hierarchical task management, claim monitoring, and release approval.
+  - `hierarchical`: Multi-tier swarm governance for large-scale enterprise repositories.
+- **Disjoint Perimeter Invariant**: Automated prompt decomposition produces strictly non-overlapping `permitted_files` per active concurrent task contract ($\text{permitted\_files}(A) \cap \text{permitted\_files}(B) = \emptyset$).
+- **Atomic Claims Leasing**: Native lock lease management backed by `.ai/agents/CLAIMS.yaml` and `.claims.lock` via `uaf team lock` and `uaf team release`.
+- **Universal Multi-Target Export**: Seamlessly project team personas and boundary rules into:
+  - Claude Code subagent definitions (`.claude/agents/*.md`)
+  - Google Antigravity team & role skills (`.agents/skills/team-*/SKILL.md`)
+  - Cursor boundary rules (`.cursor/rules/team.mdc`)
+  - Pi / pi-agent-harness configurations (`.pi/agents/*.md`, `.pi/prompts/*.md`)
+- **Deliverable Verification**: Added `uaf team verify` to ensure deliverable contracts and evidence receipts are satisfied.
+- **Scaffold & Checker Conformance**: Added `--extension v3.1` and `--extension v3.1.0` in `uaf_init.py` and conformance assertions `CONF-V31-001` through `CONF-V31-006` in `uaf_check.py`.
+
 ## v3.0.1 — 2026-09-26
 
 - Fixed inherited scaffold warning `CONF-REF-001`: ensured `.ai/memory/entries` is tracked in scaffold with `.gitkeep` and automatically provisioned by `uaf init`.

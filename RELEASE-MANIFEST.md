@@ -1,18 +1,21 @@
-# UAAF v3.0.1 Release Manifest
+# UAAF v3.1.0 Release Manifest
 
-Version: 3.0.1
+Version: 3.1.0
 Framework: UAAF
-Profile support: full for the v3.0 runtime; cumulative minimal/standard/full core remains available without the runtime extension
-v3.0 extension: Full profile (supports alias `v3.0` and `v3.0.1`)
+Profile support: full for the v3.0/v3.1 runtime; cumulative minimal/standard/full core remains available without the runtime extension
+v3.1 extension: Full profile (supports alias `v3.1` and `v3.1.0`)
 
-New in v3.0.1:
-- Fixed inherited scaffold warning `CONF-REF-001`: `.ai/memory/entries` is now automatically created on initialization and included in the scaffold.
-- Fixed inherited scaffold warning `CONF-DOC-001`: removed raw HTML comment placeholders from `.ai/core/CONTEXT.md`, achieving clean 100% `PASS` conformance on fresh projects.
-- Enhanced `extension_num` in `uaf_check.py` and `uaf_doctor.py` to robustly handle semantic versioning strings (e.g., `3.0.1`).
-- Added `v3.0.1` alias support to `uaf init --extension v3.0.1`.
-- Added automated regression test suite for v3.0.1 clean-state conformance.
+New in v3.1.0:
+- **Team-Architecture Factory & Multi-Agent Orchestrator (`uaf team`)**: Introduced protocol `UAAF-TEAM-1.0` enabling simultaneous, collision-free multi-agent coordination.
+- **Six Architectural Patterns**: Pipeline, Producer-Reviewer, Fan-Out/Fan-In, Expert Pool, Supervisor, and Hierarchical Swarm.
+- **Disjoint Perimeter Invariant**: Automatic decomposition ensuring $\text{permitted\_files}(A) \cap \text{permitted\_files}(B) = \emptyset$.
+- **Atomic Claims Leasing**: Lock lease management backed by `.ai/agents/CLAIMS.yaml` and `.claims.lock`.
+- **Universal Multi-Target Export**: Seamlessly project team personas to Claude Code, Google Antigravity, Cursor, and Pi.
+- **Deliverable Verification**: `uaf team verify` validates task contracts and evidence receipts.
 
-Carried over from v3.0:
+Carried over from v3.0 / v3.0.1:
+- Clean scaffold without inherited warnings
+- Robust semantic versioning parsing (`3.0.1`, `3.1.0`)
 - Federated Agent Runtime (`UAAF-FED-3.0`)
 - capability-aware routing bounded by trusted peer ceilings
 - signed remote task contracts

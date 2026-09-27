@@ -4,6 +4,9 @@ This directory archives the validation reports, field reports, and implementatio
 
 ## 📋 Directory Contents
 
+- **v3.1.x Reports**:
+  - `V3.1-VALIDATION-REPORT.md` — Current v3.1.0 Team-Architecture Factory validation report.
+  - `V3.1-IMPLEMENTATION.md` — Team-Architecture Factory & Multi-Agent Orchestrator implementation notes.
 - **v3.0.x Reports**:
   - `V3.0.1-VALIDATION-REPORT.md` — Current reference distribution validation report.
   - `V3.0-VALIDATION-REPORT.md` — Federated Agent Runtime validation report.

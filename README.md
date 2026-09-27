@@ -134,8 +134,8 @@ Initialize UAF into any new or existing project:
 # Standard profile (recommended for general projects)
 uaf init ./my-project --profile standard --auto-detect
 
-# Full profile with Federated Agent Runtime v3.0.1
-uaf init ./my-project --profile full --extension v3.0.1
+# Full profile with Team Orchestrator & Federated Agent Runtime v3.1.0
+uaf init ./my-project --profile full --extension v3.1.0
 ```
 
 Use `--docs all` for the complete documentation catalog or `--docs none` to omit `docs/`.
@@ -146,6 +146,36 @@ The v1.5 Context Receipt template supports optional `estimated_tokens` and decla
 
 Versions are cumulative. Selecting a later version includes earlier extension layers.
 
+### v3.1 — Team-Architecture Factory & Multi-Agent Orchestrator
+
+v3.1 introduces protocol `UAAF-TEAM-1.0` allowing multiple heterogeneous coding agents (Claude Code, Google Antigravity, Cursor, Open Code, and Pi) to collaborate simultaneously without merge collisions or unpermitted scope expansion.
+
+Key capabilities:
+- **6 Architectural Patterns**: `pipeline`, `producer_reviewer`, `fan_out_fan_in`, `expert_pool`, `supervisor`, `hierarchical`.
+- **Disjoint Perimeter Invariant**: Automatic prompt decomposition guaranteeing $\text{permitted\_files}(A) \cap \text{permitted\_files}(B) = \emptyset$.
+- **Atomic Claim Leasing**: Safe lock management via `.ai/agents/CLAIMS.yaml` and `.claims.lock`.
+- **Universal Multi-Target Export**: Seamlessly emits native agent personas for Claude Code (`.claude/agents/*.md`), Antigravity (`.agents/skills/team-*/SKILL.md`), Cursor (`.cursor/rules/team.mdc`), and Pi (`.pi/agents/*.md`, `.pi/prompts/*.md`).
+- **Deliverable Verification**: Validates task contract completion against evidence receipts.
+
+```bash
+# 1. Compose multi-agent team architecture
+python tools/uaf.py team compose "Implement distributed dashboard" --pattern fan_out_fan_in
+
+# 2. Lock file perimeters atomically
+python tools/uaf.py team lock --agent claude-code --lease 900
+
+# 3. Check status of team roster, contracts, and lock leases
+python tools/uaf.py team status
+
+# 4. Export native configs to Claude Code, Antigravity, Cursor, and Pi
+python tools/uaf.py team export --target all
+
+# 5. Release file locks
+python tools/uaf.py team release
+
+# 6. Verify deliverables against contracts and evidence receipts
+python tools/uaf.py team verify
+```
 
 ### v3.0 — Federated Agent Runtime
 

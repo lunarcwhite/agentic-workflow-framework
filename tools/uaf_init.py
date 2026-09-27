@@ -210,12 +210,12 @@ def main() -> None:
     parser.add_argument("--auto-detect", action="store_true", help="detect capabilities from existing files")
     parser.add_argument("--force", action="store_true", help="allow reinitialization of an existing UAAF installation")
     parser.add_argument("--docs", choices=["auto", "all", "none"], default="auto", help="documentation generation mode for standard/full")
-    parser.add_argument("--extension", choices=["none", "v1.1", "v1.2", "v1.3", "v1.4", "v1.5", "v1.6", "v1.7", "v1.8", "v1.9", "v2.0", "v2.1", "v2.2", "v2.3", "v2.4", "v2.5", "v2.6", "v2.7", "v2.8", "v2.9", "v3.0", "v3.0.1"], default="none", help="enable additive UAAF extensions")
+    parser.add_argument("--extension", choices=["none", "v1.1", "v1.2", "v1.3", "v1.4", "v1.5", "v1.6", "v1.7", "v1.8", "v1.9", "v2.0", "v2.1", "v2.2", "v2.3", "v2.4", "v2.5", "v2.6", "v2.7", "v2.8", "v2.9", "v3.0", "v3.0.1", "v3.1", "v3.1.0"], default="none", help="enable additive UAAF extensions")
     args = parser.parse_args()
     requested_extension = args.extension
-    # v3.0 / v3.0.1 is additive over v2.9. Reuse the existing v2.9 scaffold-generation
-    # path, then append the v3.0 runtime layer before finalizing the manifest.
-    if args.extension in {"v3.0", "v3.0.1"}:
+    # v3.0 / v3.0.1 / v3.1 is additive over v2.9. Reuse the existing v2.9 scaffold-generation
+    # path, then append the v3.0/v3.1 runtime layer before finalizing the manifest.
+    if args.extension in {"v3.0", "v3.0.1", "v3.1", "v3.1.0"}:
         args.extension = "v2.9"
     extension = "v1.9" if args.extension in {"v2.0", "v2.1", "v2.2", "v2.3", "v2.4", "v2.5", "v2.6", "v2.7", "v2.8", "v2.9"} else args.extension
     if args.extension in {"v1.3", "v1.4", "v1.5", "v1.6", "v1.7", "v1.8", "v1.9", "v2.0", "v2.1", "v2.2", "v2.3", "v2.4", "v2.5", "v2.6", "v2.7", "v2.8", "v2.9"} and args.profile != "full":
@@ -835,10 +835,22 @@ def main() -> None:
             except Exception:
                 pass
 
-    if requested_extension in {"v3.0", "v3.0.1"}:
-        data["framework"]["version"] = "3.0.1" if requested_extension == "v3.0.1" else "3.0.0"
+    if requested_extension in {"v3.0", "v3.0.1", "v3.1", "v3.1.0"}:
+        if requested_extension in {"v3.1", "v3.1.0"}:
+            data["framework"]["version"] = "3.1.0"
+            data.setdefault("protocols", {})["team_orchestrator"] = "UAAF-TEAM-1.0"
+            data.setdefault("extensions", {})["version"] = "3.1.0"
+            data["extensions"]["team_orchestrator"] = {
+                "team_file": ".ai/agents/TEAM.yaml",
+                "claims_file": ".ai/agents/CLAIMS.yaml",
+                "tasks_dir": ".ai/tasks/active",
+                "mode": "disjoint_task_contract_claims_export",
+                "enforce_non_overlapping": True,
+            }
+        else:
+            data["framework"]["version"] = "3.0.1" if requested_extension == "v3.0.1" else "3.0.0"
+            data.setdefault("extensions", {})["version"] = "3.0.1" if requested_extension == "v3.0.1" else "3.0"
         data.setdefault("protocols", {})["federation_runtime"] = "UAAF-FED-3.0"
-        data.setdefault("extensions", {})["version"] = "3.0.1" if requested_extension == "v3.0.1" else "3.0"
         data["extensions"]["federated_agent_runtime"] = {
             "policy": ".ai/federation/runtime/POLICY.yaml",
             "routes": ".ai/federation/runtime/ROUTES.yaml",
@@ -1029,7 +1041,7 @@ def main() -> None:
             if target.exists() and target.is_file():
                 target.unlink()
 
-    if requested_extension not in {"v3.0", "v3.0.1"}:
+    if requested_extension not in {"v3.0", "v3.0.1", "v3.1", "v3.1.0"}:
         runtime = destination / ".ai/federation/runtime"
         for rel in [
             ".ai/federation/runtime/POLICY.yaml",

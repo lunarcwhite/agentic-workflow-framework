@@ -65,7 +65,7 @@
             <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
           </svg>
           <span class="gh-text">GitHub</span>
-          <span class="gh-badge">v3.0.1</span>
+          <span class="gh-badge">v3.1.0</span>
         </a>
       </div>
     </div>
@@ -498,11 +498,12 @@
             </div>
             <div class="terminal-tabs" role="tablist">
               <button class="term-tab active" data-target="term-out-doctor" role="tab" aria-selected="true">uaf doctor</button>
+              <button class="term-tab" data-target="term-out-team" role="tab" aria-selected="false">uaf team</button>
               <button class="term-tab" data-target="term-out-check" role="tab" aria-selected="false">uaf check</button>
               <button class="term-tab" data-target="term-out-git" role="tab" aria-selected="false">uaf git</button>
               <button class="term-tab" data-target="term-out-federation" role="tab" aria-selected="false">uaf federation</button>
             </div>
-            <div class="terminal-badge">CLI v3.0.1</div>
+            <div class="terminal-badge">CLI v3.1.0</div>
           </div>
 
           <div class="terminal-body">
@@ -518,6 +519,21 @@
               <br>
               <span class="tok-pass">========================================================</span><br>
               <span class="tok-pass">STATUS: HEALTHY (0 errors, conformance checks passed)</span><br>
+              <span class="tok-pass">========================================================</span>
+            </div>
+
+            <!-- Output 1b: Team Orchestrator -->
+            <div id="term-out-team" class="term-output">
+              <span class="tok-cmd">$ uaf team compose "Implement distributed payment dashboard" --pattern fan_out_fan_in</span><br>
+              <span class="tok-pass">COMPOSED (UAAF-TEAM-1.0)</span><br>
+              <span class="tok-dim">[10:15:01]</span> <span class="tok-info">TEAM</span> Initializing roster TEAM-7B2A91D0 (Fan-Out / Fan-In)... <span class="tok-pass">[OK]</span><br>
+              <span class="tok-dim">[10:15:01]</span> <span class="tok-info">DECOMPOSE</span> Generated 4 disjoint task contracts (.ai/tasks/active/)... <span class="tok-pass">[OK]</span><br>
+              <span class="tok-dim">[10:15:02]</span> <span class="tok-info">INVARIANT</span> Disjoint perimeter: zero overlapping permitted_files... <span class="tok-pass">[PASS]</span><br>
+              <span class="tok-dim">[10:15:02]</span> <span class="tok-info">CLAIMS</span> Atomic lock leases acquired (.ai/agents/CLAIMS.yaml)... <span class="tok-pass">[LOCKED]</span><br>
+              <span class="tok-dim">[10:15:03]</span> <span class="tok-info">EXPORT</span> Emitted personas: Claude Code, Antigravity, Cursor, and Pi... <span class="tok-pass">[OK]</span><br>
+              <br>
+              <span class="tok-pass">========================================================</span><br>
+              <span class="tok-pass">STATUS: READY (4 agents scheduled, zero file collisions)</span><br>
               <span class="tok-pass">========================================================</span>
             </div>
 
@@ -671,7 +687,7 @@
           <div class="brand-logo">
             <img src="favicon.svg" alt="UAAF Logo" class="brand-icon">
             <span class="brand-title">UAAF</span>
-            <span class="footer-badge">v3.0.1</span>
+            <span class="footer-badge">v3.1.0</span>
           </div>
           <p class="footer-brand-desc">
             Universal AI Agent Framework — open repository governance, deterministic task contracts, and verification CLI for autonomous AI coding agents.
@@ -697,6 +713,7 @@
             <li><a href="https://github.com/lunarcwhite/agentic-workflow-framework/blob/main/spec/UAAF-v1.0-MASTER-SPEC.md" target="_blank" rel="noopener">Master Specification (v1.0)</a></li>
             <li><a href="https://github.com/lunarcwhite/agentic-workflow-framework/blob/main/spec/UAAF-v2.0-MASTER-SPEC.md" target="_blank" rel="noopener">Federation Spec (v2.0)</a></li>
             <li><a href="https://github.com/lunarcwhite/agentic-workflow-framework/blob/main/spec/UAAF-v3.0-MASTER-ADDENDUM.md" target="_blank" rel="noopener">Runtime Addendum (v3.0)</a></li>
+            <li><a href="https://github.com/lunarcwhite/agentic-workflow-framework/blob/main/spec/UAAF-v3.1-EXTENSIONS.md" target="_blank" rel="noopener">Team Orchestrator Spec (v3.1)</a></li>
             <li><a href="https://github.com/lunarcwhite/agentic-workflow-framework/tree/main/reports" target="_blank" rel="noopener">Validation Reports</a></li>
           </ul>
         </div>
@@ -737,7 +754,7 @@
         </div>
         <div class="footer-badge-pill">
           <span class="live-dot"></span>
-          <span>CLI v3.0.1 Stable &bull; Production Ready</span>
+          <span>CLI v3.1.0 Stable &bull; Multi-Agent Team Ready</span>
         </div>
       </div>
     </div>
