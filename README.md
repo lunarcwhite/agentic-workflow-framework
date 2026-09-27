@@ -1,8 +1,8 @@
 # Universal AI Agent Framework (UAAF)
 
-[![CI](https://github.com/lunarcwhite/universal-agent-framework/actions/workflows/ci.yml/badge.svg)](https://github.com/lunarcwhite/universal-agent-framework/actions/workflows/ci.yml)
-[![Website](https://img.shields.io/badge/website-live-cyan.svg)](https://lunarcwhite.github.io/universal-agent-framework/)
-[![Release](https://img.shields.io/github/v/release/lunarcwhite/universal-agent-framework?color=blue&label=release)](https://github.com/lunarcwhite/universal-agent-framework/releases)
+[![CI](https://github.com/lunarcwhite/agentic-workflow-framework/actions/workflows/ci.yml/badge.svg)](https://github.com/lunarcwhite/agentic-workflow-framework/actions/workflows/ci.yml)
+[![Website](https://img.shields.io/badge/website-live-cyan.svg)](https://lunarcwhite.github.io/agentic-workflow-framework/)
+[![Release](https://img.shields.io/github/v/release/lunarcwhite/agentic-workflow-framework?color=blue&label=release)](https://github.com/lunarcwhite/agentic-workflow-framework/releases)
 [![Python](https://img.shields.io/badge/python-3.9%20%7C%203.10%20%7C%203.11%20%7C%203.12-blue)](https://www.python.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Spec](https://img.shields.io/badge/spec-UAP--1.0%20%7C%20UAAF--FED--3.0-success)](./spec)
@@ -120,8 +120,8 @@ flowchart TD
 Clone the repository and install the CLI:
 
 ```bash
-git clone https://github.com/lunarcwhite/universal-agent-framework.git
-cd universal-agent-framework
+git clone https://github.com/lunarcwhite/agentic-workflow-framework.git
+cd agentic-workflow-framework
 pip install -e .
 ```
 
@@ -159,7 +159,7 @@ git tag -l
 git checkout v2.0.0
 ```
 
-Release assets and changelogs are also accessible directly via [GitHub Releases](https://github.com/lunarcwhite/universal-agent-framework/releases).
+Release assets and changelogs are also accessible directly via [GitHub Releases](https://github.com/lunarcwhite/agentic-workflow-framework/releases).
 
 ---
 

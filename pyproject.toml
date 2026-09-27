@@ -55,10 +55,11 @@ dev = [
 uaf = "tools.uaf:main"
 
 [project.urls]
-Homepage = "https://github.com/lunarcwhite/universal-agent-framework"
-Repository = "https://github.com/lunarcwhite/universal-agent-framework.git"
-Issues = "https://github.com/lunarcwhite/universal-agent-framework/issues"
-Changelog = "https://github.com/lunarcwhite/universal-agent-framework/blob/main/CHANGELOG.md"
+Homepage = "https://github.com/lunarcwhite/agentic-workflow-framework"
+Repository = "https://github.com/lunarcwhite/agentic-workflow-framework.git"
+Documentation = "https://lunarcwhite.github.io/agentic-workflow-framework/"
+Issues = "https://github.com/lunarcwhite/agentic-workflow-framework/issues"
+Changelog = "https://github.com/lunarcwhite/agentic-workflow-framework/blob/main/CHANGELOG.md"
 
 [tool.setuptools.packages.find]
 where = ["."]

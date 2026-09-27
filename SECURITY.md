@@ -33,7 +33,7 @@ We request that you do **not** report security vulnerabilities via public GitHub
 
 ### Reporting Process
 
-1. **Private Advisory**: Report vulnerabilities privately via **[GitHub Private Vulnerability Reporting](https://github.com/lunarcwhite/universal-agent-framework/security/advisories/new)** on this repository.
+1. **Private Advisory**: Report vulnerabilities privately via **[GitHub Private Vulnerability Reporting](https://github.com/lunarcwhite/agentic-workflow-framework/security/advisories/new)** on this repository.
 2. **Alternative Disclosure**: If GitHub Private Vulnerabilities are unavailable, contact the project maintainers directly via repository issues by requesting a secure communication channel.
 
 ### What to Include

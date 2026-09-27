@@ -60,3 +60,7 @@ jobs:
     - name: Run v3.0.0 Field & Downgrade Validation
       run: |
         python tests/test_v30_field.py
+
+    - name: Run v3.1.0 Team Orchestrator Validation
+      run: |
+        python tests/test_v31_team.py
