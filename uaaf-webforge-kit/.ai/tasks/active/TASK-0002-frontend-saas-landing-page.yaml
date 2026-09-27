@@ -1,0 +1,45 @@
+id: TASK-0002
+type: FEATURE
+status: PLANNED
+assigned_role: landing_page_pro
+assigned_agent: AGENT-LANDING-PAGE
+role_title: SaaS Landing Page Specialist
+scope:
+  level: FEATURE
+  domains:
+  - frontend
+  - copywriting
+  - ui
+  risk: LOW
+  permitted_files:
+  - static/index.html
+  - static/css/landing.css
+intent:
+  statement: Buat halaman depan SaaS Landing Page yang memukau untuk UAAF WebForge.
+  source: user_webforge_spec
+  confidence: HIGH
+requirements:
+- Hero section dengan H1 kuat, subhead persuasif, dan badge 'Powered by UAAF v3.3'.
+- 3-Step How It Works visual guide.
+- Preview isi paket UAAF Project Kit yang akan didownload pengguna.
+- 'Lencana ''Zero-Log Privacy: Ide bisnis Anda 100% aman''.'
+- FAQ interaktif dengan Schema.org FAQPage JSON-LD.
+- Tombol CTA utama 'Mulai Rancang Websitemu' yang membuka Studio.
+constraints:
+- Gunakan Vanilla HTML5, CSS3, dan ES6 tanpa framework JavaScript eksternal (zero
+  node_modules).
+- Patuhi sistem desain pada prd/DESIGN-SYSTEM.md.
+- Hanya boleh memodifikasi file dalam permitted_files.
+non_goals:
+- Tidak mengimplementasikan interaktivitas live chat studio (cakupan TASK-0003).
+- Tidak mengimplementasikan endpoint backend (cakupan TASK-0001).
+acceptance_criteria:
+- Tampilan responsif di mobile dan desktop.
+- Semua heading dan elemen visual selaras dengan prd/DESIGN-SYSTEM.md.
+verification:
+- python tools/uaf_seo.py audit static/ --threshold 90
+integrity:
+  intent_hash: affe61970df7d932d2477dd1fefd45af24c723151d8e5c7047ff365ffe374198
+  requirements_hash: aa88e093463aad35c9313bccf72da21d90ba413f3295a586c27441d4dfbf3b02
+  constraints_hash: 6bf26090898da1151db916f0566c146425907beda6d9f10c7236fc44eefce796
+  non_goals_hash: c7d79a42a92f4f6fd6a0990e0280c4f019f0096f500a53941db73047820d52c3

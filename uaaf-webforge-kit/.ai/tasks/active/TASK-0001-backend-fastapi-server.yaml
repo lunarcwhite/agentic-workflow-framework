@@ -1,0 +1,49 @@
+id: TASK-0001
+type: FEATURE
+status: PLANNED
+assigned_role: backend_specialist
+assigned_agent: AGENT-BACKEND
+role_title: Backend & AI Engine Specialist
+scope:
+  level: FEATURE
+  domains:
+  - backend
+  - api
+  - ai
+  risk: LOW
+  permitted_files:
+  - app/main.py
+  - app/config.py
+  - app/services/consultant.py
+  - requirements.txt
+  - .env.example
+intent:
+  statement: Bangun server FastAPI dengan endpoint /api/chat yang terintegrasi ke
+    Gemini Flash dan memiliki guardrail ketat.
+  source: user_webforge_spec
+  confidence: HIGH
+requirements:
+- Buat server FastAPI asinkron dengan CORS middleware.
+- Implementasikan client Gemini Flash dengan system prompt konsultan produk UAAF.
+- 'Terapkan guardrail ketat: tolak pertanyaan di luar perancangan website secara santun.'
+- Terapkan batasan 8 putaran chat per sesi.
+- Sediakan fallback simulator cerdas jika GEMINI_API_KEY belum dipasang di .env.
+constraints:
+- 'Zero-Log Privacy: Dilarang menyimpan atau mencatat prompt/konten chat user di database
+  server.'
+- Maksimal 8 turn obrolan per sesi.
+- Hanya boleh memodifikasi file dalam permitted_files.
+non_goals:
+- Tidak membuat UI landing page atau frontend studio (cakupan TASK-0002 & TASK-0003).
+- Tidak membuat packaging file ZIP (cakupan TASK-0004).
+acceptance_criteria:
+- Endpoint GET /api/health mengembalikan status OK.
+- Endpoint POST /api/chat merespons dalam format JSON (message, blueprint delta, turn_count).
+- Server berjalan mulus tanpa crash.
+verification:
+- python -m pytest tests/test_backend.py || python app/main.py --check
+integrity:
+  intent_hash: 1984349994b9472b485696e0d3e3d1be4bead88464cf66f5c03d37c72136678d
+  requirements_hash: 529bf5f34dda601c749926f8fbdf54063159f8adfbfa6475078d02ec2aab7ab9
+  constraints_hash: d616c468cb2a6dea5bb8a5eafe5cfe0337f6a963f2b606a8a6f4e2eef638620a
+  non_goals_hash: 28317773c1089d7f5ea060ab7be9c16a998a40c43d957b94436b154368e5693a

@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: uaaf-webforge
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: python app/main.py
+    envVars:
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: PORT
+        value: 10000

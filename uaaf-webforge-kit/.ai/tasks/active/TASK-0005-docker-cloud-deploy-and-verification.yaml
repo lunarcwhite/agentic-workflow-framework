@@ -1,0 +1,41 @@
+id: TASK-0005
+type: FEATURE
+status: PLANNED
+assigned_role: verifier
+assigned_agent: AGENT-VERIFIER
+role_title: DevOps & Quality Assurance Specialist
+scope:
+  level: FEATURE
+  domains:
+  - devops
+  - cloud
+  - qa
+  risk: LOW
+  permitted_files:
+  - Dockerfile
+  - render.yaml
+  - tests/*
+intent:
+  statement: Sediakan konfigurasi cloud deployment dan verifikasi kualitas akhir.
+  source: user_webforge_spec
+  confidence: HIGH
+requirements:
+- Buat Dockerfile multi-stage ringan berbasis python:3.11-slim.
+- Buat render.yaml untuk 1-klik deploy di Render.com.
+- Pastikan uaf seo audit static/ menghasilkan skor 100/100.
+constraints:
+- Docker image harus seringan mungkin menggunakan base python:3.11-slim.
+- Semua audit verifikasi UAAF dan SEO wajib lulus 100%.
+- Hanya boleh memodifikasi file dalam permitted_files.
+non_goals:
+- Tidak menambah fitur fungsional baru ke aplikasi.
+acceptance_criteria:
+- Docker build sukses tanpa error.
+- UAAF audit menghasilkan status PASS.
+verification:
+- python tools/uaf.py check
+integrity:
+  intent_hash: c5e7ce888d1fd35fa098ad4b31070a9b127c04ea08a7d8426c709237e04bce5f
+  requirements_hash: 894cbc0a6c51ae4dd046f657157a960a907f98c8bb3e32edcecad2a01829d14c
+  constraints_hash: b2924928af91522a1272dfb16679e405bffee0319776f607134ee8b0c9341fff
+  non_goals_hash: 1dce829058ecc4a96a494fbc7b812a0ea5e017a3507c50fce397cf1d4216a023

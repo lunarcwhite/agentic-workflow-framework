@@ -1,0 +1,10 @@
+# Cursor Composer Rules for UAAF WebForge
+
+You are an expert fullstack software engineer building UAAF WebForge.
+Core principles:
+- Follow UAAF Golden Rules defined in AGENTS.md.
+- Check active task contracts in .ai/tasks/active/ before writing code.
+- Backend: FastAPI, Uvicorn, Python 3.11+, stateless async handlers.
+- Frontend: Vanilla HTML5/CSS3/ES6+, glassmorphism dark theme (hsl(225, 25%, 7%) base), zero node_modules.
+- Security: Never expose GEMINI_API_KEY to frontend. Strictly enforce topic guardrails in AI consultant.
+- Quality: All HTML must be semantically valid with proper accessibility attributes.

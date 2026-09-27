@@ -1,0 +1,50 @@
+id: TASK-0004
+type: FEATURE
+status: PLANNED
+assigned_role: engineer
+assigned_agent: AGENT-ENGINEER
+role_title: Packaging & Hydration Engineer
+scope:
+  level: FEATURE
+  domains:
+  - backend
+  - packaging
+  - uaaf
+  risk: MEDIUM
+  permitted_files:
+  - app/services/packager.py
+  - app/main.py
+intent:
+  statement: Bangun service pembuat file ZIP in-memory yang meng-hydrate template
+    UAAF sesuai hasil konsultasi.
+  source: user_webforge_spec
+  confidence: HIGH
+requirements:
+- Gunakan io.BytesIO dan zipfile bawaan Python (stateless, zero-log di disk).
+- Salin dan hydrate .ai/manifest.yaml dengan data proyek website user.
+- Generate prd/ARCHITECTURE.md dan prd/DESIGN-SYSTEM.md sesuai pilihan warna/section
+  user.
+- Generate task contracts TASK-0001 s/d TASK-0005 untuk website user.
+- Sertakan src/index.html (dan halaman multi-page jika diminta) + src/styles/tokens.css.
+- Sertakan validator tools/uaf.py, tools/uaf_check.py, tools/uaf_seo.py, dan tools/uaf_blocker.py
+  serta vercel.json.
+- 'Beri nama file ZIP dinamis: [project-slug]-uaaf-kit.zip.'
+constraints:
+- Packaging ZIP harus diproses sepenuhnya in-memory menggunakan io.BytesIO dan zipfile
+  tanpa menyimpan file sementara ke disk.
+- Paket ZIP wajib menyertakan uaf.py, uaf_check.py, uaf_seo.py, dan uaf_blocker.py
+  di folder tools/ agar verifikasi mandiri dan pencatatan blocker berfungsi.
+- Hanya boleh memodifikasi file dalam permitted_files.
+non_goals:
+- Tidak membuat antarmuka UI baru.
+- Tidak membuat database persisten.
+acceptance_criteria:
+- Endpoint POST /api/export-zip menghasilkan file ZIP valid dengan status 200.
+- File ZIP yang diekstrak lolos validasi uaf check.
+verification:
+- python -c 'from app.services.packager import test_packager; test_packager()'
+integrity:
+  intent_hash: 9744ebe2ebd9a0165f92b9d27ca5256eb73737a1c97cc57a926612638d1d6117
+  requirements_hash: e586963af63b62c2012fc5af5731582d245ceeaf9de6854a18af98c0eb342352
+  constraints_hash: 0180b8ada2a240a1b3cef3e019266ecad289f9577b7c50fdc400a0ebac15ebf3
+  non_goals_hash: 00b5fa32bc6f19bd7236f4f1848d27c9843c336908e6050cb09c15ef1f8a4a50

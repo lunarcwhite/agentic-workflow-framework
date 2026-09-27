@@ -1,0 +1,48 @@
+id: TASK-0003
+type: FEATURE
+status: PLANNED
+assigned_role: frontend_specialist
+assigned_agent: AGENT-FRONTEND
+role_title: Split-Screen Studio Specialist
+scope:
+  level: FEATURE
+  domains:
+  - frontend
+  - javascript
+  - interactivity
+  risk: LOW
+  permitted_files:
+  - static/css/studio.css
+  - static/js/app.js
+  - static/index.html
+intent:
+  statement: Implementasikan antarmuka Split-Screen Studio (chat di kiri, live blueprint
+    di kanan).
+  source: user_webforge_spec
+  confidence: HIGH
+requirements:
+- 'Panel Kiri: Chat stream interaktif, preset chips, suggestion pills, dan indikator
+  kuota sesi (x/8).'
+- 'Panel Kanan: Live Blueprint Canvas (Executive summary, HSL palette swatches dengan
+  shuffle, checklist 12-section, sitemap Single/Multi-Page, UAAF task roster).'
+- 'Dukungan interaktivitas dua arah: user bisa toggle section dan shuffle warna di
+  panel kanan.'
+- Penyimpanan riwayat obrolan dan blueprint di localStorage.
+- Tombol glowing 'Download Agent-Ready Project Kit (.zip)'.
+constraints:
+- Gunakan Vanilla JavaScript murni dan localStorage untuk persistensi state client.
+- Patuhi batasan 8 putaran chat per sesi.
+- Hanya boleh memodifikasi file dalam permitted_files.
+non_goals:
+- Tidak membangun endpoint AI backend baru (menggunakan API dari TASK-0001).
+- Tidak membuat packaging ZIP di server (cakupan TASK-0004).
+acceptance_criteria:
+- Chatbot merespons interaktif dan blueprint di kanan ter-update real-time.
+- Refresh browser mempertahankan state sesi.
+verification:
+- Buka di browser dan uji obrolan dari Turn 1 hingga Turn 8.
+integrity:
+  intent_hash: 7ca26206160275aecb2c05538ff4e0a08e9e3893d70236add27c18da92007679
+  requirements_hash: cfc976ee26b84b0def86b18b2762a40c664d4d55809686513a946bfc58b52d88
+  constraints_hash: 00acc217a24eefd9ecd58b2d925fd6a355a6b2fade5dd03e661540c11cc5b163
+  non_goals_hash: 31782f336d35641bc342654ff5fffef9dfaad5cf0e3b2c278557adb366d3519d

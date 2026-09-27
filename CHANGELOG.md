@@ -1,5 +1,18 @@
 # Changelog
 
+## v3.3.1 — 2026-09-27
+
+- **Framework Lifecycle Exemption & Out-of-Scope Defect Protocol**:
+  - `AGENTS.md` & `scaffold/.ai/core/RULES.md` (`RULE-004`): explicitly authorized framework lifecycle metadata (`.ai/memory/STATE.md`, `.ai/evidence/`, `.ai/tasks/` status transitions) for recording state, blockers, and handoffs without violating task `scope.permitted_files`.
+  - `scaffold/.ai/verification/DELIVERY-GATE.md`: codified Out-of-Scope Defect Protocol to prevent silent scope expansion while ensuring external/pre-existing defects are persisted to disk instead of being lost in ephemeral chat.
+- **Automated Blocker & Anomaly Tracker (`uaf blocker`)**:
+  - Implemented `tools/uaf_blocker.py` and registered `uaf blocker` in `tools/uaf.py`.
+  - Enables agents to deterministically append blocker/anomaly records to `.ai/memory/STATE.md` with monotonic versioning and UTC timestamps (`python tools/uaf.py blocker "<message>" --task <ID>`).
+  - Windows console / cp1252 safe without encoding traps.
+- **WebForge Project Kit Scaffold Packaging & Self-Validation**:
+  - `tools/build_webforge_kit.py`: bundled self-contained verification tools (`uaf.py`, `uaf_check.py`, `uaf_seo.py`, `uaf_blocker.py`), generated compliant task contracts with SHA-256 integrity hashes (`integrity`), and enforced pre-flight self-validation using `uaf_check` before packaging.
+  - Added regression test suite in `tests/test_webforge_kit.py`.
+
 ## v3.3.0 — 2026-09-27
 
 - **Native Landing Page Design Architecture**:
