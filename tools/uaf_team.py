@@ -178,7 +178,79 @@ ROLE_DEFINITIONS: dict[str, dict[str, Any]] = {
         "skills": ["conformance_checking", "license_audit", "anti_slop_gatekeeping"],
         "recommended_model": "high_reasoning",
     },
+    "fastapi_pro": {
+        "title": "FastAPI Specialist",
+        "description": "Architects and implements high-performance asynchronous RESTful APIs using FastAPI and Pydantic v2.",
+        "skills": ["fastapi_async", "pydantic_v2", "openapi_docs", "api_design"],
+        "recommended_model": "balanced_coding",
+    },
+    "django_pro": {
+        "title": "Django Specialist",
+        "description": "Develops scalable web backends with Django ORM, secure auth, and REST Framework.",
+        "skills": ["django_orm", "django_rest_framework", "migrations", "backend_security"],
+        "recommended_model": "balanced_coding",
+    },
+    "react_pro": {
+        "title": "React Component Specialist",
+        "description": "Builds responsive, accessible, component-driven web interfaces using React, Next.js, and TypeScript.",
+        "skills": ["react_components", "nextjs_app_router", "tailwind_css", "wcag_a11y"],
+        "recommended_model": "balanced_coding",
+    },
+    "nextjs_pro": {
+        "title": "Next.js & Fullstack Specialist",
+        "description": "Next.js App Router, Server Actions, SSR streaming, and fullstack TypeScript.",
+        "skills": ["nextjs_app_router", "server_actions", "ssr_optimization", "typescript_strict"],
+        "recommended_model": "balanced_coding",
+    },
+    "vue_pro": {
+        "title": "Vue.js Specialist",
+        "description": "Develops intuitive UI and reactive frontend components with Vue 3 and Pinia.",
+        "skills": ["vue3_composition", "pinia_state", "vite_tooling"],
+        "recommended_model": "balanced_coding",
+    },
+    "postgresql_dba": {
+        "title": "Database & PostgreSQL Specialist",
+        "description": "Optimizes database schemas, indexing strategies, complex SQL queries, and zero-downtime migrations.",
+        "skills": ["postgresql_optimization", "sql_indexing", "schema_migrations", "query_plan_analysis"],
+        "recommended_model": "high_reasoning",
+    },
+    "devops_engineer": {
+        "title": "Cloud & DevOps Engineer",
+        "description": "Configures containerized workloads, CI/CD pipelines, Docker, Kubernetes, and IaC scaffolding.",
+        "skills": ["docker_containers", "ci_cd_workflows", "kubernetes_manifests", "terraform_iac"],
+        "recommended_model": "balanced_coding",
+    },
+    "testing_specialist": {
+        "title": "QA & Test Automation Specialist",
+        "description": "Authors robust automated unit, integration, and property-based test suites with high coverage.",
+        "skills": ["pytest_advanced", "jest_playwright", "mocking_fixtures", "coverage_enforcement"],
+        "recommended_model": "balanced_coding",
+    },
 }
+
+
+def discover_installed_roles(root: Path) -> dict[str, dict[str, Any]]:
+    """Dynamically load roles from installed plugins in .ai/plugins/."""
+    plugins_dir = root / ".ai/plugins"
+    discovered: dict[str, dict[str, Any]] = {}
+    if not plugins_dir.exists():
+        return discovered
+    for p_dir in plugins_dir.iterdir():
+        if p_dir.is_dir() and (p_dir / "plugin.json").exists():
+            try:
+                data = json.loads((p_dir / "plugin.json").read_text(encoding="utf-8"))
+                for agent in data.get("agents", []):
+                    role_key = agent["name"].replace("-", "_")
+                    discovered[role_key] = {
+                        "title": agent.get("title", agent["name"].replace("-", " ").title()),
+                        "description": agent.get("description", f"Specialist from plugin {p_dir.name}"),
+                        "skills": agent.get("skills", []),
+                        "recommended_model": agent.get("recommended_model", "balanced_coding"),
+                        "plugin": p_dir.name,
+                    }
+            except Exception:
+                pass
+    return discovered
 
 
 def utc_now_iso() -> str:
@@ -245,25 +317,50 @@ def decompose_tasks(root: Path, prompt: str, pattern: str) -> list[dict[str, Any
     """Decompose prompt into disjoint, non-overlapping task contracts."""
     domains = detect_file_domains(root)
     pattern_meta = PATTERNS.get(pattern, PATTERNS["pipeline"])
-    roles = pattern_meta["default_roles"]
+    base_roles = pattern_meta["default_roles"]
     tasks: list[dict[str, Any]] = []
 
     domain_keys = ["backend", "frontend", "tests", "docs"]
     assigned_files: set[str] = set()
 
-    for idx, role in enumerate(roles, 1):
+    # Dynamic registry merging built-in specialists with installed plugins
+    all_roles = dict(ROLE_DEFINITIONS)
+    all_roles.update(discover_installed_roles(root))
+
+    p_lower = prompt.lower()
+    adapted_roles = list(base_roles)
+    for i, r in enumerate(adapted_roles):
+        if r in ["backend_specialist", "engineer", "producer"]:
+            if "fastapi" in p_lower:
+                adapted_roles[i] = "fastapi_pro"
+            elif "django" in p_lower:
+                adapted_roles[i] = "django_pro"
+            elif any(k in p_lower for k in ["postgres", "sql", "database"]):
+                adapted_roles[i] = "postgresql_dba"
+            elif any(k in p_lower for k in ["docker", "k8s", "kubernetes", "devops"]):
+                adapted_roles[i] = "devops_engineer"
+        elif r in ["frontend_specialist"]:
+            if any(k in p_lower for k in ["nextjs", "next.js", "react"]):
+                adapted_roles[i] = "react_pro"
+            elif "vue" in p_lower:
+                adapted_roles[i] = "vue_pro"
+        elif r in ["qa_engineer", "qa_lead", "verifier"]:
+            if any(k in p_lower for k in ["pytest", "test", "coverage"]):
+                adapted_roles[i] = "testing_specialist"
+
+    for idx, role in enumerate(adapted_roles, 1):
         task_id = f"TASK-{idx:04d}"
-        role_info = ROLE_DEFINITIONS.get(role, {})
+        role_info = all_roles.get(role, {})
         title = role_info.get("title", role.replace("_", " ").title())
 
         # Allocate strictly disjoint permitted files
         if role in ["architect", "planner", "supervisor", "lead_architect"]:
             permitted = [".ai/decisions/*", ".ai/tasks/*"]
-        elif role in ["engineer", "producer", "backend_specialist", "worker_primary"]:
+        elif role in ["engineer", "producer", "backend_specialist", "worker_primary", "fastapi_pro", "django_pro", "postgresql_dba", "devops_engineer"]:
             permitted = [p for p in domains.get("backend", ["src/*"]) if p not in assigned_files]
-        elif role in ["frontend_specialist", "worker_secondary"]:
+        elif role in ["frontend_specialist", "worker_secondary", "react_pro", "nextjs_pro", "vue_pro"]:
             permitted = [p for p in domains.get("frontend", ["src/components/*"]) if p not in assigned_files]
-        elif role in ["qa_engineer", "qa_lead", "verifier"]:
+        elif role in ["qa_engineer", "qa_lead", "verifier", "testing_specialist"]:
             permitted = [p for p in domains.get("tests", ["tests/*"]) if p not in assigned_files]
         elif role in ["reviewer", "security_auditor", "compliance_officer"]:
             permitted = [".ai/evidence/*", ".ai/verification/*"]
@@ -287,6 +384,9 @@ def decompose_tasks(root: Path, prompt: str, pattern: str) -> list[dict[str, Any
             f"Adhere strictly to permitted_files perimeter: {actual_permitted}.",
             "Preserve all existing codebase tests and conventions.",
         ]
+        if role_info.get("skills"):
+            reqs.append(f"Apply required domain skills: {role_info['skills']}.")
+
         constraints = [
             "No edits outside permitted_files perimeter.",
             "No mock stubs or placeholder comments.",
@@ -313,6 +413,7 @@ def decompose_tasks(root: Path, prompt: str, pattern: str) -> list[dict[str, Any
             "assigned_role": role,
             "assigned_agent": f"AGENT-{role.upper().replace('_', '-')}",
             "role_title": title,
+            "required_skills": role_info.get("skills", []),
             "scope": {
                 "level": "FEATURE",
                 "domains": [role],
@@ -354,6 +455,8 @@ def cmd_compose(root: Path, prompt: str, pattern: str | None = None, write: bool
     """Compose a team architecture, decompose tasks, and persist team specifications."""
     selected_pattern = select_pattern(prompt, pattern)
     tasks = decompose_tasks(root, prompt, selected_pattern)
+    all_roles = dict(ROLE_DEFINITIONS)
+    all_roles.update(discover_installed_roles(root))
 
     team_data = {
         "schema_version": SCHEMA_VERSION,
@@ -370,7 +473,8 @@ def cmd_compose(root: Path, prompt: str, pattern: str | None = None, write: bool
                 "agent_id": t["assigned_agent"],
                 "task_id": t["id"],
                 "permitted_files": t["scope"]["permitted_files"],
-                "recommended_model": ROLE_DEFINITIONS.get(t["assigned_role"], {}).get("recommended_model", "balanced"),
+                "required_skills": t.get("required_skills", []),
+                "recommended_model": all_roles.get(t["assigned_role"], {}).get("recommended_model", "balanced_coding"),
             }
             for t in tasks
         ],
@@ -486,6 +590,9 @@ def cmd_export(root: Path, target: str = "all") -> dict[str, Any]:
     pattern = team.get("pattern", "pipeline")
     objective = team.get("objective", "Execute project deliverables")
 
+    all_roles = dict(ROLE_DEFINITIONS)
+    all_roles.update(discover_installed_roles(root))
+
     generated_files: list[str] = []
 
     # 1. Claude Code (.claude/agents/*.md)
@@ -494,7 +601,7 @@ def cmd_export(root: Path, target: str = "all") -> dict[str, Any]:
         claude_dir.mkdir(parents=True, exist_ok=True)
         for m in members:
             role = m["role"]
-            role_def = ROLE_DEFINITIONS.get(role, {})
+            role_def = all_roles.get(role, {})
             content = (
                 f"---\n"
                 f"name: {role}\n"
@@ -587,7 +694,7 @@ def cmd_export(root: Path, target: str = "all") -> dict[str, Any]:
             pi_agent_file.write_text(
                 f"---\n"
                 f"tools: [read, write, edit, bash]\n"
-                f"model: {ROLE_DEFINITIONS.get(role, {}).get('recommended_model', 'claude-sonnet-4-5')}\n"
+                f"model: {all_roles.get(role, {}).get('recommended_model', 'claude-sonnet-4-5')}\n"
                 f"---\n\n"
                 f"# Role: {m['title']}\n"
                 f"Task ID: {m['task_id']}\n"

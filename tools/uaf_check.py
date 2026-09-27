@@ -1968,13 +1968,13 @@ def validate_v29_extensions(root: Path, manifest: dict, errors: list[str], warni
 
 def validate_v30_extensions(root: Path, manifest: dict, errors: list[str], warnings: list[str]):
     ext = manifest.get("extensions") or {}
-    if str(ext.get("version", "0")) not in {"3.0", "3.0.1", "3.1", "3.1.0"}:
+    if str(ext.get("version", "0")) not in {"3.0", "3.0.1", "3.1", "3.1.0", "3.2", "3.2.0"}:
         return
     if str(manifest.get("profile", "")).lower() != "full":
         errors.append("CONF-V30-001 UAAF v3.0 federated runtime requires full profile")
     framework_version = str((manifest.get("framework") or {}).get("version", ""))
-    if framework_version not in {"3.0.0", "3.0.1", "3.1.0"}:
-        errors.append("CONF-V30-002 framework.version must be 3.0.0, 3.0.1, or 3.1.0")
+    if framework_version not in {"3.0.0", "3.0.1", "3.1.0", "3.2.0"}:
+        errors.append("CONF-V30-002 framework.version must be 3.0.0, 3.0.1, 3.1.0, or 3.2.0")
     protocols = manifest.get("protocols") or {}
     inherited = {
         "federation": "UAAF-FED-2.0",
@@ -2110,7 +2110,7 @@ def validate_v30_extensions(root: Path, manifest: dict, errors: list[str], warni
 def validate_v31_extensions(root: Path, manifest: dict, errors: list[str], warnings: list[str]):
     ext = manifest.get("extensions") or {}
     ext_version = str(ext.get("version", "0"))
-    if ext_version not in {"3.1", "3.1.0"}:
+    if ext_version not in {"3.1", "3.1.0", "3.2", "3.2.0"}:
         return
     protocols = manifest.get("protocols") or {}
     if str(protocols.get("team_orchestrator", "")) != "UAAF-TEAM-1.0":
@@ -2138,6 +2138,26 @@ def validate_v31_extensions(root: Path, manifest: dict, errors: list[str], warni
                         seen_files[f] = member.get("role")
         except Exception as e:
             errors.append(f"CONF-V31-006 failed to parse TEAM.yaml: {e}")
+
+
+def validate_v32_extensions(root: Path, manifest: dict, errors: list[str], warnings: list[str]):
+    ext = manifest.get("extensions") or {}
+    ext_version = str(ext.get("version", "0"))
+    if ext_version not in {"3.2", "3.2.0"}:
+        return
+    protocols = manifest.get("protocols") or {}
+    if str(protocols.get("plugin_marketplace", "")) != "UAAF-PLUGIN-1.0":
+        errors.append("CONF-V32-001 protocols.plugin_marketplace must be UAAF-PLUGIN-1.0")
+    plugin_ext = ext.get("plugin_marketplace") or {}
+    if not plugin_ext:
+        errors.append("CONF-V32-002 extensions.plugin_marketplace missing")
+    plugins_dir_rel = plugin_ext.get("plugins_dir", ".ai/plugins")
+    plugins_dir = root / plugins_dir_rel
+    if plugins_dir.exists():
+        for p_dir in plugins_dir.iterdir():
+            if p_dir.is_dir():
+                if not (p_dir / "GOVERNANCE.md").exists():
+                    warnings.append(f"CONF-V32-003 plugin '{p_dir.name}' lacks GOVERNANCE.md")
 
 
 def check(path: Path, level: str = "standard", pinned_root_fingerprint: str | None = None) -> tuple[list[str], list[str], list[str]]:
@@ -2188,6 +2208,7 @@ def check(path: Path, level: str = "standard", pinned_root_fingerprint: str | No
     else:
         validate_v30_extensions(root, manifest, errors, warnings)
         validate_v31_extensions(root, manifest, errors, warnings)
+        validate_v32_extensions(root, manifest, errors, warnings)
 
     # Placeholder warning in stable kernel files.
     for rel in [".ai/core/CONTEXT.md", ".ai/core/CONVENTIONS.md"]:

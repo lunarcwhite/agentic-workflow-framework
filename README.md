@@ -228,6 +228,23 @@ python tools/uaf.py team release
 python tools/uaf.py team verify
 ```
 
+#### 📦 Agentic Plugin Marketplace Integration (`wshobson/agents` Compatible)
+
+Extend your multi-agent teams with 200+ specialized domain personas and modular skills:
+
+```bash
+# 1. Search for specialized plugins & agents
+python tools/uaf.py plugin search fastapi
+python tools/uaf.py plugin search security
+
+# 2. Install and govern plugins into .ai/plugins/
+python tools/uaf.py plugin install python-development
+python tools/uaf.py plugin install security-audit
+
+# 3. Export plugin personas across harnesses
+python tools/uaf.py plugin export python-development --target all
+```
+
 ### v3.0 — Federated Agent Runtime
 
 v3.0 adds explicit remote execution semantics on top of the v2.0–v2.9 federation stack. It is Full-profile only and remains transport-independent: the runtime produces signed contracts, lease receipts, cancellation bundles, result bundles, evidence receipts, and hash-chained provenance.

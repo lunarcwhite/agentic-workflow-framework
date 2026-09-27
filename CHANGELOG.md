@@ -1,5 +1,20 @@
 # Changelog
 
+## v3.2.0 — 2026-09-27
+
+- **Agentic Plugin Marketplace Manager (`uaf plugin`)**: Introduced protocol `UAAF-PLUGIN-1.0` bridging UAAF to extensive agentic plugin ecosystems (including `wshobson/agents`).
+- **Commands**:
+  - `uaf plugin list`: Inspect installed plugins in `.ai/plugins/` and browse catalog of available packages.
+  - `uaf plugin search <query>`: Fast search across plugin descriptions, specialized agents, skills, and commands.
+  - `uaf plugin install <name>`: Download and scaffold plugin manifests, agents, and skills with live GitHub retrieval and offline curated fallback.
+  - `uaf plugin govern <name>`: Enforce UAAF Golden Axioms, bounded tools, and generate anchored evidence receipts (`EV-PLUGIN-<HASH>.yaml`).
+  - `uaf plugin export <name>`: Multi-target export of plugin personas to Claude Code (`.claude/`), Antigravity (`.agents/`), Cursor (`.cursor/`), and Pi (`.pi/`).
+- **Dynamic Team Role Discovery & Domain Adaptation**:
+  - Enhanced `uaf team compose` to discover installed roles dynamically from `.ai/plugins/` via `discover_installed_roles()`.
+  - Added specialized domain roles to `ROLE_DEFINITIONS`: `fastapi_pro`, `django_pro`, `react_pro`, `nextjs_pro`, `vue_pro`, `postgresql_dba`, `devops_engineer`, and `testing_specialist`.
+  - Intelligent keyword matching automatically elevates generic roles to domain specialists and attaches required skills to task contracts.
+- **Scaffold & Checker Conformance**: Added `--extension v3.2` and `--extension v3.2.0` in `uaf_init.py` and conformance assertions `CONF-V32-001` through `CONF-V32-003` in `uaf_check.py`.
+
 ## v3.1.0 — 2026-09-27
 
 - **Team-Architecture Factory & Multi-Agent Orchestrator (`uaf team`)**: Introduced protocol `UAAF-TEAM-1.0` enabling simultaneous, collision-free multi-agent coordination across heterogeneous coding tools (Claude Code, Antigravity, Cursor, and Pi).

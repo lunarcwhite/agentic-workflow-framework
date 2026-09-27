@@ -64,3 +64,8 @@ jobs:
     - name: Run v3.1.0 Team Orchestrator Validation
       run: |
         python tests/test_v31_team.py
+
+    - name: Run v3.2.0 Plugin Marketplace & Domain Specialist Validation
+      run: |
+        python tests/test_v32_plugin.py
+

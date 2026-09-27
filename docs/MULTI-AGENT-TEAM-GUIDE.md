@@ -190,3 +190,35 @@ Setiap deliverable tugas diverifikasi terhadap kriteria kontraktual:
 2. **Disjoint Boundary Verified**: Tidak ada file tumpang tindih.
 3. **Exit Code 0 Evidence**: Pengujian lokal harus menghasilkan exit code 0.
 4. **Anti-Slop Hard Gate**: Tidak ada komentar `// TODO`, mock stub, atau file placeholder di output diff.
+
+---
+
+## 9. Plugin Marketplace Integration & Domain Specialists (`wshobson/agents` Compatible)
+
+UAAF v3.1 mendukung integrasi penuh dengan ekosistem marketplace agentic seperti [`wshobson/agents`](https://github.com/wshobson/agents) melalui modul CLI `uaf plugin`. Integrasi ini memperkaya tim dengan ratusan spesialis domain siap pakai (misal: FastAPI, React, PostgreSQL, Docker, Security) yang tetap berada dalam tata kelola ketat UAAF.
+
+### Perintah CLI Marketplace:
+
+```bash
+# 1. Cari plugin / keahlian yang dibutuhkan
+python tools/uaf.py plugin search fastapi
+python tools/uaf.py plugin search security
+
+# 2. Pasang plugin ke dalam .ai/plugins/ (otomatis diaudit & digovern)
+python tools/uaf.py plugin install python-development
+python tools/uaf.py plugin install security-audit
+
+# 3. Ekspor persona dan skills ke target IDE / harness
+python tools/uaf.py plugin export python-development --target all
+```
+
+### Adaptasi Otomatis Spesialis Domain (`uaf team compose`):
+Ketika Anda menjalankan `uaf team compose` dengan tujuan spesifik:
+```bash
+python tools/uaf.py team compose "Implement FastAPI backend endpoints and React dashboard" --pattern fan_out_fan_in
+```
+UAAF secara otomatis memetakan peran ke spesialis domain:
+- Peran backend generik &rarr; dipetakan ke **`FastAPI Specialist`** (`fastapi_pro`) dengan skill `[fastapi_async, pydantic_v2, api_design]`.
+- Peran frontend generik &rarr; dipetakan ke **`React Component Specialist`** (`react_pro`) dengan skill `[react_components, nextjs_app_router, tailwind_css]`.
+- Kontrak tugas (`.ai/tasks/active/TASK-*.yaml`) secara otomatis menyematkan `required_skills` yang terikat pada persona tersebut.
+

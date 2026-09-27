@@ -44,6 +44,7 @@ COMMANDS = {
     "key-ops": "uaf_key_ops.py",
     "federation-runtime": "uaf_federation_runtime.py",
     "team": "uaf_team.py",
+    "plugin": "uaf_plugin.py",
 }
 
 
