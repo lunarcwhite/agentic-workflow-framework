@@ -72,6 +72,43 @@ flowchart LR
     ENC --> B_Kernel
 ```
 
+### 3. Local Multi-Agent Team Architecture & Disjoint Perimeters
+
+```mermaid
+flowchart TD
+    subgraph Decomp["1. Objective Decomposition (uaf team compose)"]
+        OBJ["High-Level Feature Goal"]
+        ENG["Team Architecture Engine"]
+        OBJ --> ENG
+    end
+
+    subgraph Roster["2. Disjoint Task Contracts (Non-Overlapping)"]
+        T1["TASK-0001: Backend Specialist<br><code>src/api/*</code>"]
+        T2["TASK-0002: Frontend Specialist<br><code>src/components/*</code>"]
+        T3["TASK-0003: Reviewer / Verifier<br><code>tests/*</code>"]
+        ENG -->|disjoint split| T1
+        ENG -->|disjoint split| T2
+        ENG -->|disjoint split| T3
+    end
+
+    subgraph Claims["3. Atomic Claims Locking (.claims.lock)"]
+        LOCK["Exclusive File Leases (.ai/agents/CLAIMS.yaml)"]
+        T1 --- LOCK
+        T2 --- LOCK
+        T3 --- LOCK
+    end
+
+    subgraph Export["4. Universal Persona Export (uaf team export)"]
+        CL["Claude Code (.claude/agents/)"]
+        AG["Antigravity (.agents/skills/)"]
+        CR["Cursor (.cursor/rules/)"]
+        PI["Pi / Harness (.pi/agents/)"]
+        T1 --> CL
+        T2 --> AG
+        T3 --> CR
+        T3 --> PI
+    end
+```
 
 ---
 
@@ -150,27 +187,41 @@ Versions are cumulative. Selecting a later version includes earlier extension la
 
 v3.1 introduces protocol `UAAF-TEAM-1.0` allowing multiple heterogeneous coding agents (Claude Code, Google Antigravity, Cursor, Open Code, and Pi) to collaborate simultaneously without merge collisions or unpermitted scope expansion.
 
-Key capabilities:
-- **6 Architectural Patterns**: `pipeline`, `producer_reviewer`, `fan_out_fan_in`, `expert_pool`, `supervisor`, `hierarchical`.
-- **Disjoint Perimeter Invariant**: Automatic prompt decomposition guaranteeing $\text{permitted\_files}(A) \cap \text{permitted\_files}(B) = \emptyset$.
+> 📖 **Comprehensive Guide**: See the complete [Multi-Agent Team Orchestration Guide](./docs/MULTI-AGENT-TEAM-GUIDE.md) and normative specification [UAAF-v3.1-EXTENSIONS.md](./spec/UAAF-v3.1-EXTENSIONS.md).
+
+#### The 6 Architectural Patterns
+
+| Pattern | Topology | Default Roles | Best Suited For |
+|---|---|---|---|
+| `pipeline` | Sequential chain | `architect` &rarr; `engineer` &rarr; `reviewer` &rarr; `verifier` | Migrations, refactoring, linear feature delivery |
+| `producer_reviewer` | Iterative pair | `producer`, `reviewer` | High-assurance bug fixes, security patches |
+| `fan_out_fan_in` | Parallel domain split | `coordinator`, `backend_specialist`, `frontend_specialist`, `integrator` | Full-stack features, high-throughput tasks |
+| `expert_pool` | Subsystem dispatch | `planner`, `domain_expert`, `security_auditor`, `qa_engineer` | Mission-critical algorithms, security audits |
+| `supervisor` | Hierarchical delegation | `supervisor`, `worker_primary`, `worker_secondary` | Iterative backlog processing, release management |
+| `hierarchical` | Multi-tier enterprise | `lead_architect`, `system_engineer`, `qa_lead`, `compliance_officer` | Monorepos, large complex codebases |
+
+#### Core Invariants
+- **Disjoint Perimeter Invariant**: Automatic prompt decomposition guaranteeing $\text{permitted\_files}(A) \cap \text{permitted\_files}(B) = \emptyset$. No two agents can touch the same file concurrently.
 - **Atomic Claim Leasing**: Safe lock management via `.ai/agents/CLAIMS.yaml` and `.claims.lock`.
 - **Universal Multi-Target Export**: Seamlessly emits native agent personas for Claude Code (`.claude/agents/*.md`), Antigravity (`.agents/skills/team-*/SKILL.md`), Cursor (`.cursor/rules/team.mdc`), and Pi (`.pi/agents/*.md`, `.pi/prompts/*.md`).
-- **Deliverable Verification**: Validates task contract completion against evidence receipts.
+- **Deliverable Verification**: `uaf team verify` validates task contract completion against evidence receipts.
+
+#### Quick CLI Workflow
 
 ```bash
-# 1. Compose multi-agent team architecture
-python tools/uaf.py team compose "Implement distributed dashboard" --pattern fan_out_fan_in
+# 1. Compose multi-agent team architecture (e.g. parallel frontend & backend)
+python tools/uaf.py team compose "Implement distributed payment dashboard" --pattern fan_out_fan_in
 
-# 2. Lock file perimeters atomically
+# 2. Lock file perimeters atomically via .claims.lock
 python tools/uaf.py team lock --agent claude-code --lease 900
 
-# 3. Check status of team roster, contracts, and lock leases
+# 3. Check status of team roster, active contracts, and lock leases
 python tools/uaf.py team status
 
 # 4. Export native configs to Claude Code, Antigravity, Cursor, and Pi
 python tools/uaf.py team export --target all
 
-# 5. Release file locks
+# 5. Release file locks upon stage completion
 python tools/uaf.py team release
 
 # 6. Verify deliverables against contracts and evidence receipts
