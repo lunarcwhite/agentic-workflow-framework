@@ -51,6 +51,7 @@
           <li><a href="#gates" class="nav-link">Gates</a></li>
           <li><a href="#axioms" class="nav-link">Axioms</a></li>
           <li><a href="#terminal" class="nav-link">CLI</a></li>
+          <li><a href="#extensions" class="nav-link">Protocols (v3.2)</a></li>
           <li><a href="#quickstart" class="nav-link">Quickstart</a></li>
         </ul>
       </nav>
@@ -499,6 +500,7 @@
             <div class="terminal-tabs" role="tablist">
               <button class="term-tab active" data-target="term-out-doctor" role="tab" aria-selected="true">uaf doctor</button>
               <button class="term-tab" data-target="term-out-team" role="tab" aria-selected="false">uaf team</button>
+              <button class="term-tab" data-target="term-out-plugin" role="tab" aria-selected="false">uaf plugin</button>
               <button class="term-tab" data-target="term-out-check" role="tab" aria-selected="false">uaf check</button>
               <button class="term-tab" data-target="term-out-git" role="tab" aria-selected="false">uaf git</button>
               <button class="term-tab" data-target="term-out-federation" role="tab" aria-selected="false">uaf federation</button>
@@ -534,6 +536,21 @@
               <br>
               <span class="tok-pass">========================================================</span><br>
               <span class="tok-pass">STATUS: READY (4 agents scheduled, zero file collisions)</span><br>
+              <span class="tok-pass">========================================================</span>
+            </div>
+
+            <!-- Output 1c: Plugin Marketplace & Domain Specialists (v3.2) -->
+            <div id="term-out-plugin" class="term-output">
+              <span class="tok-cmd">$ uaf plugin install specialist/fastapi_pro</span><br>
+              <span class="tok-pass">INSTALLED (UAAF-PLUGIN-1.0)</span><br>
+              <span class="tok-dim">[10:16:15]</span> <span class="tok-info">FETCH</span> Connecting to marketplace catalog (wshobson/agents)... <span class="tok-pass">[OK]</span><br>
+              <span class="tok-dim">[10:16:16]</span> <span class="tok-info">GOVERN</span> Enforcing UAAF governance sandbox (.ai/plugins/specialist/fastapi_pro/GOVERNANCE.md)... <span class="tok-pass">[INSPECTED]</span><br>
+              <span class="tok-dim">[10:16:16]</span> <span class="tok-info">CRYPTO</span> Computed SHA-256 integrity receipt: <span class="tok-info">sha256:d8c1e402b8...</span> <span class="tok-pass">[VERIFIED]</span><br>
+              <span class="tok-dim">[10:16:17]</span> <span class="tok-info">EVIDENCE</span> Written .ai/evidence/EV-PLUGIN-INSTALL-fastapi_pro.yaml... <span class="tok-pass">[ANCHORED]</span><br>
+              <span class="tok-dim">[10:16:17]</span> <span class="tok-info">TEAM</span> Auto-discovered installed role for `uaf team compose` dynamic specialization.<br>
+              <br>
+              <span class="tok-pass">========================================================</span><br>
+              <span class="tok-pass">STATUS: READY (Plugin sandboxed &amp; governed, evidence anchored)</span><br>
               <span class="tok-pass">========================================================</span>
             </div>
 
@@ -623,6 +640,84 @@
       </div>
     </section>
 
+    <!-- SECTION: Protocol Extensions & Ecosystem (v3.0 - v3.2) -->
+    <section class="section extensions-section" id="extensions">
+      <div class="container">
+        <div class="section-head">
+          <div class="section-tag">Protocols &amp; Ecosystem</div>
+          <h2 class="section-title">Evolving from Single Agent to Multi-Agent Ecosystems</h2>
+          <p class="section-desc">
+            UAAF scales beyond a single-repository prompt kernel into multi-agent team orchestration, federated cryptographic delegation, and sandboxed external plugin marketplaces.
+          </p>
+        </div>
+
+        <div class="extensions-grid">
+          <!-- Extension 1: Plugin Marketplace (v3.2) -->
+          <div class="extension-card featured">
+            <div class="extension-header">
+              <span class="extension-badge latest">LATEST &bull; v3.2.0</span>
+              <span class="extension-proto">UAAF-PLUGIN-1.0</span>
+            </div>
+            <h3 class="extension-title">Plugin Marketplace &amp; Domain Specialists</h3>
+            <p class="extension-desc">
+              Connect to external agent catalogs (such as <code>wshobson/agents</code>) with curated offline fallback. Every plugin is isolated into <code>.ai/plugins/</code> with mandatory <code>GOVERNANCE.md</code> anti-injection rules and cryptographic evidence receipts (<code>EV-PLUGIN-*.yaml</code>). Installed domain specialists (FastAPI, React, PostgreSQL DBA, DevOps) automatically plug into <code>uaf team compose</code>.
+            </p>
+            <ul class="extension-features">
+              <li><span>Marketplace CLI: <code>uaf plugin list / search / install / govern / export</code></span></li>
+              <li><span>Deterministic Governance Sandbox with prompt injection auditing</span></li>
+              <li><span>SHA-256 evidence anchoring in <code>.ai/evidence/EV-PLUGIN-*.yaml</code></span></li>
+              <li><span>Dynamic role discovery &amp; skill synthesis in Team Orchestrator</span></li>
+            </ul>
+            <a href="https://github.com/lunarcwhite/agentic-workflow-framework/blob/main/spec/UAAF-v3.2-EXTENSIONS.md" target="_blank" rel="noopener" class="extension-link">
+              <span>Read v3.2 Plugin Spec &rarr;</span>
+            </a>
+          </div>
+
+          <!-- Extension 2: Team Orchestrator (v3.1) -->
+          <div class="extension-card">
+            <div class="extension-header">
+              <span class="extension-badge">v3.1.0</span>
+              <span class="extension-proto">UAAF-TEAM-1.0</span>
+            </div>
+            <h3 class="extension-title">Multi-Agent Team Orchestrator</h3>
+            <p class="extension-desc">
+              Decomposes high-level objectives into disjoint task contracts across 6 multi-agent coordination patterns (Fan-Out/Fan-In, Pipeline, Hierarchical, Specialist-Consultant, Pair, Consensus). Mathematically enforces zero-conflict file perimeters (<code>intersection == &empty;</code>) with atomic lock leases (<code>.claims.lock</code>).
+            </p>
+            <ul class="extension-features">
+              <li><span>6 Coordination Patterns: Fan-Out/Fan-In, Pipeline, Hierarchical, etc.</span></li>
+              <li><span>Disjoint File Perimeters: mathematically zero file overlap</span></li>
+              <li><span>Atomic Lock Leases with time-to-live auto expiration</span></li>
+              <li><span>Native multi-IDE export: Claude Code, Antigravity, Cursor, Pi</span></li>
+            </ul>
+            <a href="https://github.com/lunarcwhite/agentic-workflow-framework/blob/main/spec/UAAF-v3.1-EXTENSIONS.md" target="_blank" rel="noopener" class="extension-link">
+              <span>Read v3.1 Team Spec &rarr;</span>
+            </a>
+          </div>
+
+          <!-- Extension 3: Federated Runtime (v3.0) -->
+          <div class="extension-card">
+            <div class="extension-header">
+              <span class="extension-badge">v3.0.0</span>
+              <span class="extension-proto">UAAF-FED-3.0</span>
+            </div>
+            <h3 class="extension-title">Federated Runtime &amp; Confidential Crypto</h3>
+            <p class="extension-desc">
+              Transport-independent remote agent execution with deny-first security. Signs remote delegation contracts, generates time-bounded lease tokens, and establishes end-to-end encrypted channels (Ed25519/X25519 + ChaCha20-Poly1305) with non-secret key custody providers (filesystem, env, AWS Secrets Manager).
+            </p>
+            <ul class="extension-features">
+              <li><span>Signed remote delegation contracts &amp; verifiable result bundles</span></li>
+              <li><span>Confidential E2EE peer sessions (ChaCha20-Poly1305)</span></li>
+              <li><span>Key custody abstraction: private keys never enter repository</span></li>
+              <li><span>Hash-chained execution provenance and audit trail</span></li>
+            </ul>
+            <a href="https://github.com/lunarcwhite/agentic-workflow-framework/blob/main/spec/UAAF-v3.0-MASTER-ADDENDUM.md" target="_blank" rel="noopener" class="extension-link">
+              <span>Read v3.0 Federation Spec &rarr;</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- Quickstart Section -->
     <section class="section quickstart-section" id="quickstart">
       <div class="container">
@@ -637,7 +732,8 @@
         <div class="code-window">
           <div class="code-tabs" role="tablist">
             <button class="code-tab-btn active" data-tab="tab-cli" role="tab" aria-selected="true">With Python CLI (Recommended)</button>
-            <button class="code-tab-btn" data-tab="tab-team" role="tab" aria-selected="false">Multi-Agent Team Orchestration (v3.1)</button>
+            <button class="code-tab-btn" data-tab="tab-team" role="tab" aria-selected="false">Multi-Agent Team (v3.1)</button>
+            <button class="code-tab-btn" data-tab="tab-plugin" role="tab" aria-selected="false">Plugin Marketplace (v3.2)</button>
             <button class="code-tab-btn" data-tab="tab-nopy" role="tab" aria-selected="false">Pure Scaffold (Zero Python, Any Language)</button>
             <button class="code-tab-btn" data-tab="tab-federation" role="tab" aria-selected="false">Multi-Agent Federation &amp; Crypto</button>
           </div>
@@ -673,6 +769,23 @@
             <span class="tok-cmd">python tools/uaf.py team status</span><br>
             <span class="tok-cmd">python tools/uaf.py team release</span><br>
             <span class="tok-cmd">python tools/uaf.py team verify</span>
+          </div>
+
+          <div id="tab-plugin" class="code-content" role="tabpanel">
+            <span class="tok-dim"># 1. Search curated external agent plugins &amp; domain specialists</span><br>
+            <span class="tok-cmd">python tools/uaf.py plugin search fastapi</span><br>
+            <br>
+            <span class="tok-dim"># 2. Install specialist into sandboxed directory with SHA-256 evidence receipt</span><br>
+            <span class="tok-cmd">python tools/uaf.py plugin install specialist/fastapi_pro</span><br>
+            <br>
+            <span class="tok-dim"># 3. Audit sandboxed prompt injection defenses and file perimeters</span><br>
+            <span class="tok-cmd">python tools/uaf.py plugin govern specialist/fastapi_pro</span><br>
+            <br>
+            <span class="tok-dim"># 4. Compose team automatically using dynamically discovered specialist roles</span><br>
+            <span class="tok-cmd">python tools/uaf.py team compose "Create high-performance FastAPI microservice"</span><br>
+            <br>
+            <span class="tok-dim"># 5. Export governed skill prompts for Claude Code, Antigravity, Cursor, or Pi</span><br>
+            <span class="tok-cmd">python tools/uaf.py plugin export specialist/fastapi_pro --target claude-code</span>
           </div>
 
           <div id="tab-nopy" class="code-content" role="tabpanel">
