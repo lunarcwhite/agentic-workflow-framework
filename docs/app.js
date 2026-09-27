@@ -1,6 +1,6 @@
 /**
  * Universal AI Agent Framework (UAAF)
- * Client-side Interactive Logic, ASE-1.0 Anti-Slop Scanner & Micro-interactions
+ * Client-side Interactive Logic, Contract Validator Simulator & UI Interactions
  */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initCopyButtons();
   initTerminalTabs();
   initCodeTabs();
-  initAntiSlopScanner();
+  initContractValidator();
 });
 
 /* ==========================================================================
@@ -135,9 +135,9 @@ function initCodeTabs() {
 }
 
 /* ==========================================================================
-   Interactive Anti-Slop Engine (ASE-1.0) Sandbox
+   Interactive Task Contract & Evidence Validator Simulator
    ========================================================================== */
-function initAntiSlopScanner() {
+function initContractValidator() {
   const codeInput = document.getElementById('scanner-code-input');
   const runBtn = document.getElementById('btn-run-scan');
   const resetBtn = document.getElementById('btn-reset-scan');
@@ -152,7 +152,7 @@ function initAntiSlopScanner() {
   const PRESETS = {
     'phantom-pass': {
       label: 'The Phantom Pass (Conversational Claim)',
-      tag: 'Agent Completion Claim (No Command)',
+      tag: 'Agent Completion Claim (No Evidence)',
       code: `// Agent conversation response:
 "I have thoroughly tested the auth token refresh endpoint!
 All 18 unit tests and 4 integration tests passed with 100% success.
@@ -161,25 +161,25 @@ Zero regressions found. Task marked as COMPLETE."
 // Git Status:
 // Modified: src/auth/token.ts
 // Untracked / Evidence: (none)
-// exit_code: NOT_RUN
+// exit_code: UNRECORDED (conversational claim only)
 // evidence-receipt.yaml: MISSING`,
       verdict: {
         status: 'VIOLATION',
-        gate: 'HARD GATE · Fabrication (ASE-1.0 #1)',
+        gate: 'HARD GATE · Unverified Claim (Missing Evidence Receipt)',
         axiom: 'Rule #8: Evidence before completion claims.',
-        summary: 'Conversational claim rejected. Agent asserted 100% test pass without invoking test runner or producing evidence receipt.',
+        summary: 'Conversational claim rejected. Agent asserted tests passed without recording an exit code or generating an evidence receipt.',
         details: [
           { label: 'Evidence Receipt', status: 'FAIL', desc: '.ai/evidence/evidence-receipt.yaml is missing.' },
-          { label: 'Test Execution', status: 'FAIL', desc: 'Exit code is NOT_RUN (NOT_RUN != PASS).' },
-          { label: 'Cryptographic Hash', status: 'FAIL', desc: 'No stdout hash anchored.' }
+          { label: 'Test Execution Log', status: 'FAIL', desc: 'Exit code unrecorded; conversational claim only.' },
+          { label: 'Output SHA-256 Hash', status: 'FAIL', desc: 'No stdout SHA-256 hash anchored in contract.' }
         ],
-        remedy: 'Mandate command execution via runtime policy and generate signed evidence receipt before state transition.'
+        remedy: 'Run test suite and anchor exit code 0 plus stdout hash into evidence-receipt.yaml before completing the task.'
       }
     },
 
     'lazy-stub': {
       label: 'The Lazy Stub (// TODO Placeholder)',
-      tag: 'Agent Code Diff (Incomplete Stubs)',
+      tag: 'Agent Code Diff (Unfinished Stubs)',
       code: `export async function processPayment(invoiceId: string): Promise<PaymentResult> {
   const invoice = await db.invoices.findById(invoiceId);
   if (!invoice) throw new Error("Invoice not found");
@@ -194,21 +194,21 @@ Zero regressions found. Task marked as COMPLETE."
 }`,
       verdict: {
         status: 'VIOLATION',
-        gate: 'HARD GATE · Incompleteness Presented as Complete (ASE-1.0 #5)',
+        gate: 'HARD GATE · Incomplete Implementation Presented as Done',
         axiom: 'Rule #9: Keep changes minimal and complete.',
-        summary: 'AST scan detected placeholder comments (// TODO) and synthetic mock values presented as final implementation.',
+        summary: 'Code diff contains placeholder stubs (// TODO) and synthetic mock values presented as final deliverable.',
         details: [
-          { label: 'AST Lint Scan', status: 'FAIL', desc: '2 unresolved // TODO comments detected in diff.' },
-          { label: 'Mock Bypass', status: 'FAIL', desc: 'Synthetic string mock_tx_998822 detected.' },
-          { label: 'Definition of Done', status: 'FAIL', desc: 'Acceptance criteria #3 (live webhooks) unmet.' }
+          { label: 'Contract Completeness', status: 'FAIL', desc: '2 unresolved // TODO comments detected in diff.' },
+          { label: 'Mock Bypass', status: 'FAIL', desc: 'Synthetic string mock_tx_998822 detected in production path.' },
+          { label: 'Acceptance Criteria', status: 'FAIL', desc: 'Acceptance criteria #3 (live webhooks) unmet.' }
         ],
-        remedy: 'Remove mock bypasses and fulfill complete contract logic or explicitly reduce task scope in task-contract.yaml.'
+        remedy: 'Fulfill complete contract logic without mock bypasses or explicitly reduce task scope in task-contract.yaml.'
       }
     },
 
     'scope-creep': {
-      label: 'Silent Scope Creep (Unleased Files)',
-      tag: 'Task Contract vs Git Diff Drift',
+      label: 'Silent Scope Creep (Unpermitted Files)',
+      tag: 'Task Contract vs Git Diff Scope Drift',
       code: `# task-contract.yaml:
 # task_id: TASK-0412
 # permitted_files:
@@ -223,21 +223,21 @@ Zero regressions found. Task marked as COMPLETE."
 # D src/utils/legacy-formatter.ts`,
       verdict: {
         status: 'VIOLATION',
-        gate: 'HARD GATE · Silent Scope Expansion (ASE-1.0 #3)',
+        gate: 'HARD GATE · Permitted Scope Violation',
         axiom: 'Rule #6: Never silently expand scope.',
-        summary: 'Agent touched 24 files while leased task contract strictly permitted 1 file (src/components/Badge.tsx).',
+        summary: 'Agent modified 24 files while task-contract.yaml strictly permitted 1 file (src/components/Badge.tsx).',
         details: [
           { label: 'Scope Boundary', status: 'FAIL', desc: '23 unpermitted file modifications detected.' },
-          { label: 'Claim Lease', status: 'FAIL', desc: 'No leased claim for package.json or tsconfig.json.' },
-          { label: 'Dependency Creep', status: 'FAIL', desc: '4 unauthorized dependencies added without Purpose Gate.' }
+          { label: 'Permitted Files', status: 'FAIL', desc: 'No contract authorization for package.json or tsconfig.json.' },
+          { label: 'Dependency Creep', status: 'FAIL', desc: '4 unauthorized packages added without Purpose Gate review.' }
         ],
-        remedy: 'Execution halted. Out-of-bounds changes reverted. Request task contract amendment before touching external files.'
+        remedy: 'Revert out-of-bounds changes. Request an explicit task contract amendment before touching external files.'
       }
     },
 
     'clean-uaaf': {
-      label: 'UAAF Conforming & Verified',
-      tag: 'Signed Evidence & Bounded Contract',
+      label: 'Verified Delivery (Contract & Evidence Conforming)',
+      tag: 'Bounded Task Contract & Verified Evidence Receipt',
       code: `# task-contract.yaml (Bound to TASK-1082)
 # permitted_files: [src/auth/jwt.ts, tests/test_jwt.py]
 
@@ -258,14 +258,14 @@ gates:
   quality_lock: PASS`,
       verdict: {
         status: 'CONFORMING',
-        gate: 'ALL GATES CLEARED (ASE-1.0 Compliant)',
+        gate: 'ALL GATES CLEARED (UAAF Contract Conforming)',
         axiom: 'Golden Axioms: 10/10 Invariants Satisfied',
-        summary: 'Zero AI slop detected. Execution bounded within permitted scope, tests verified with SHA-256 evidence receipt, and token economics recorded.',
+        summary: 'Task deliverable verified. Diff strictly matches permitted_files, tests passed with exit code 0, and output SHA-256 hash recorded.',
         details: [
           { label: 'Scope Check', status: 'PASS', desc: 'Diff strictly matches permitted_files [2/2].' },
-          { label: 'Evidence Hash', status: 'PASS', desc: 'sha256:7f8a9e62... verified against disk log.' },
-          { label: 'Exit Code 0', status: 'PASS', desc: '18 assertions verified without mock bypasses.' },
-          { label: 'State Compaction', status: 'PASS', desc: 'Durable handoff generated in .ai/memory/STATE.md.' }
+          { label: 'Evidence Hash', status: 'PASS', desc: 'sha256:7f8a9e62... anchored in evidence receipt.' },
+          { label: 'Exit Code 0', status: 'PASS', desc: '18 test assertions verified with exit code 0.' },
+          { label: 'State Handoff', status: 'PASS', desc: 'Session state and decisions recorded in .ai/memory/STATE.md.' }
         ],
         remedy: 'Task contract TASK-1082 marked DONE. Clean handoff prepared for next agent turn.'
       }
@@ -303,7 +303,7 @@ gates:
     resultBox.innerHTML = `
       <div class="eval-loading">
         <div class="eval-spinner"></div>
-        <div class="eval-msg">ASE-1.0 AST Scanner checking Hard Gates, Task Contracts &amp; Evidence Receipts...</div>
+        <div class="eval-msg">Validating Task Contract, Permitted Scope &amp; Evidence Receipts...</div>
       </div>
     `;
 
@@ -347,7 +347,7 @@ gates:
   function renderVerdict(v) {
     const isPass = v.status === 'CONFORMING';
 
-    statusPill.textContent = isPass ? 'PASSED · ZERO SLOP' : 'VIOLATION DETECTED';
+    statusPill.textContent = isPass ? 'PASSED · CONFORMING' : 'VIOLATION DETECTED';
     statusPill.className = `verdict-pill ${isPass ? 'pass' : 'fail'}`;
 
     let detailsHtml = v.details.map(d => `
