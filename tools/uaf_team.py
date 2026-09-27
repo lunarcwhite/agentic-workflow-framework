@@ -226,6 +226,18 @@ ROLE_DEFINITIONS: dict[str, dict[str, Any]] = {
         "skills": ["pytest_advanced", "jest_playwright", "mocking_fixtures", "coverage_enforcement"],
         "recommended_model": "balanced_coding",
     },
+    "landing_page_pro": {
+        "title": "Landing Page Specialist",
+        "description": "Architects high-converting landing pages using 12-section hierarchy, PAS copywriting, and strict visual rhythm.",
+        "skills": ["landing_page_design", "conversion_copywriting", "intake_discovery", "visual_rhythm"],
+        "recommended_model": "high_reasoning",
+    },
+    "seo_specialist": {
+        "title": "SEO & Structured Data Specialist",
+        "description": "Optimizes technical SEO, OpenGraph, Twitter Cards, Schema.org JSON-LD, and Core Web Vitals compliance.",
+        "skills": ["technical_seo", "schema_jsonld", "metadata_optimization", "core_web_vitals"],
+        "recommended_model": "balanced_coding",
+    },
 }
 
 
@@ -339,11 +351,15 @@ def decompose_tasks(root: Path, prompt: str, pattern: str) -> list[dict[str, Any
                 adapted_roles[i] = "postgresql_dba"
             elif any(k in p_lower for k in ["docker", "k8s", "kubernetes", "devops"]):
                 adapted_roles[i] = "devops_engineer"
-        elif r in ["frontend_specialist"]:
-            if any(k in p_lower for k in ["nextjs", "next.js", "react"]):
+        elif r in ["frontend_specialist", "worker_secondary"]:
+            if any(k in p_lower for k in ["landing", "marketing", "conversion", "sales page"]):
+                adapted_roles[i] = "landing_page_pro"
+            elif any(k in p_lower for k in ["nextjs", "next.js", "react"]):
                 adapted_roles[i] = "react_pro"
             elif "vue" in p_lower:
                 adapted_roles[i] = "vue_pro"
+            elif any(k in p_lower for k in ["seo", "meta tag", "schema.org", "json-ld"]):
+                adapted_roles[i] = "seo_specialist"
         elif r in ["qa_engineer", "qa_lead", "verifier"]:
             if any(k in p_lower for k in ["pytest", "test", "coverage"]):
                 adapted_roles[i] = "testing_specialist"
@@ -358,8 +374,10 @@ def decompose_tasks(root: Path, prompt: str, pattern: str) -> list[dict[str, Any
             permitted = [".ai/decisions/*", ".ai/tasks/*"]
         elif role in ["engineer", "producer", "backend_specialist", "worker_primary", "fastapi_pro", "django_pro", "postgresql_dba", "devops_engineer"]:
             permitted = [p for p in domains.get("backend", ["src/*"]) if p not in assigned_files]
-        elif role in ["frontend_specialist", "worker_secondary", "react_pro", "nextjs_pro", "vue_pro"]:
-            permitted = [p for p in domains.get("frontend", ["src/components/*"]) if p not in assigned_files]
+        elif role in ["frontend_specialist", "worker_secondary", "react_pro", "nextjs_pro", "vue_pro", "landing_page_pro"]:
+            permitted = [p for p in domains.get("frontend", ["src/components/*", "docs/*"]) if p not in assigned_files]
+        elif role in ["seo_specialist"]:
+            permitted = [p for p in domains.get("docs", ["docs/*", "public/*"]) if p not in assigned_files]
         elif role in ["qa_engineer", "qa_lead", "verifier", "testing_specialist"]:
             permitted = [p for p in domains.get("tests", ["tests/*"]) if p not in assigned_files]
         elif role in ["reviewer", "security_auditor", "compliance_officer"]:

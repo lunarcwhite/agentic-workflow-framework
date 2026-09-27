@@ -321,6 +321,40 @@ BUILTIN_CATALOG: dict[str, dict[str, Any]] = {
         ],
         "commands": ["/debug-trace", "/profile-perf", "/leak-check"],
     },
+    "landing-page-seo": {
+        "name": "landing-page-seo",
+        "version": "1.0.0",
+        "category": "Design & Marketing",
+        "description": "High-converting landing page architecture (Part A Strategy + Part B Visual System) and technical SEO/AEO optimization",
+        "author": "UAAF Native Core",
+        "agents": [
+            {
+                "name": "landing-page-pro",
+                "title": "Landing Page Conversion Architect",
+                "description": "Architects high-converting landing pages with intake discovery, 12-section hierarchy, PAS copywriting, and strict visual rhythm",
+                "skills": ["landing_page_design", "conversion_copywriting", "intake_discovery", "visual_rhythm"],
+                "recommended_model": "high_reasoning",
+            },
+            {
+                "name": "seo-specialist",
+                "title": "Technical SEO & Structured Data Specialist",
+                "description": "Implements semantic HTML, OpenGraph, Twitter Cards, Schema.org JSON-LD, sitemaps, and Core Web Vitals compliance",
+                "skills": ["technical_seo", "schema_jsonld", "metadata_optimization", "core_web_vitals"],
+                "recommended_model": "balanced_coding",
+            },
+        ],
+        "skills": [
+            {
+                "name": "landing-page-design",
+                "description": "Strict 2-part framework: Part A Strategy (intake, 12-part layout, copywriting, build order) & Part B Visual System (Geist/Manrope typography, balanced text-wrap, non-arbitrary spacing tokens, flat cards with full borders)",
+            },
+            {
+                "name": "technical-seo",
+                "description": "Technical SEO, Schema.org JSON-LD structured data, AEO question-answer formatting, and automated metadata auditing via uaf seo audit",
+            },
+        ],
+        "commands": ["/audit-seo", "/generate-schema", "/scaffold-landing"],
+    },
 }
 
 
@@ -533,18 +567,91 @@ def cmd_install(plugin_name: str, root: Path, force: bool = False) -> dict[str, 
         s_dir = skills_dir / s["name"]
         s_dir.mkdir(parents=True, exist_ok=True)
         skill_file = s_dir / "SKILL.md"
-        skill_content = (
-            f"---\n"
-            f"name: {s['name']}\n"
-            f"description: {s['description']}\n"
-            f"---\n\n"
-            f"# Skill: {s['name']}\n\n"
-            f"{s['description']}\n\n"
-            f"## Practical Guidelines\n"
-            f"- Prioritize surgical, minimal diffs over large rewrites.\n"
-            f"- Verify all interfaces with strong type checking and comprehensive assertions.\n"
-            f"- Adhere to project conventions established in `.ai/core/CONVENTIONS.md`.\n"
-        )
+        if s["name"] == "landing-page-design":
+            skill_content = (
+                f"---\n"
+                f"name: {s['name']}\n"
+                f"description: \"{s['description']}\"\n"
+                f"---\n\n"
+                f"# Landing Page Design: Strategy & Visual System\n\n"
+                f"A landing page is not a homepage. A homepage serves multiple intents. A landing page wins one intent:\n"
+                f"**one offer -> one audience -> one primary action.**\n\n"
+                f"## PART A — Strategy and Structure\n\n"
+                f"### A1. Intake Discovery\n"
+                f"Gather these before writing code (in a single concise batch):\n"
+                f"1. **Primary Action**: Exactly one conversion action (free trial, book demo, waitlist, buy).\n"
+                f"2. **Offer Details**: Exactly what the user receives upon converting.\n"
+                f"3. **Audience & ICP**: Target persona, pain points, and top 3 objections.\n"
+                f"4. **Proof Assets**: Logo strip, metrics, testimonials, or guarantees.\n"
+                f"5. **Brand Voice & Style**: Minimal editorial, dark tech, or glassmorphic.\n\n"
+                f"### A2. 12-Section Conversion Hierarchy\n"
+                f"1. **Above the Fold**: Headline (Outcome + Audience), Subheadline, Primary CTA (Verb + Outcome), Proof signal, Hero visual.\n"
+                f"2. **Mid-Page**: Problem-to-Solution, Benefits (3-5 outcome-driven), How It Works (3 steps), Social Proof.\n"
+                f"3. **Bottom**: FAQ (6-12 questions formatted for AEO/SEO), Risk Reversal (guarantee/trial), Final CTA.\n\n"
+                f"### A3. Copywriting Formulas\n"
+                f"- Headline: '{{Outcome}} without {{pain}}', 'The {{category}} built for {{audience}}'.\n"
+                f"- CTA: Clear verb + what they get ('Start Free Trial', never 'Submit' or 'Learn More').\n"
+                f"- Problem-Agitate-Solve (PAS) structure for benefits.\n\n"
+                f"### A4. Build Order\n"
+                f"Iterate section-by-section: `Hero` -> `Benefits` -> `How It Works` -> `Proof` -> `FAQ` -> `Final CTA`.\n\n"
+                f"## PART B — Non-Negotiable Visual System\n\n"
+                f"### B1. Typography\n"
+                f"- **Permitted Fonts**: Geist, Manrope, Plus Jakarta Sans, Poppins, Geist Mono (for code).\n"
+                f"- **Prohibited Fonts**: Inter, Arial, Roboto, Helvetica, Times.\n"
+                f"- **Never use italics**. Cap font weights at semibold (600) or bold (700).\n"
+                f"- Apply `text-wrap: balance` to headings and `text-wrap: pretty` to body text to prevent orphaned words.\n"
+                f"- Snap font sizes to standard type scale (e.g. Tailwind `text-xs` through `text-4xl`).\n\n"
+                f"### B2. Spacing & Borders\n"
+                f"- Disciplined 4px/8px modular rhythm. No arbitrary pixel values.\n"
+                f"- Card borders must encircle the full perimeter, never on only one side.\n"
+                f"- Flat card backgrounds with subtle glassmorphism (`backdrop-filter: blur(12px)`). No chaotic gradients.\n"
+                f"- Ensure WCAG AA contrast ratio compliance.\n\n"
+                f"### B3. Verification Gate\n"
+                f"- Validate markup with `uaf seo audit <file>` before declaring completion.\n"
+            )
+        elif s["name"] == "technical-seo":
+            skill_content = (
+                f"---\n"
+                f"name: {s['name']}\n"
+                f"description: \"{s['description']}\"\n"
+                f"---\n\n"
+                f"# Technical SEO & Structured Data Standard\n\n"
+                f"Ensure every web surface and landing page is discoverable and optimized for search engines (Google SERP) and AI answer engines (AEO).\n\n"
+                f"## 1. Required Semantic HTML5 Head Elements\n"
+                f"- `<title>`: 15-70 characters. Unique, descriptive, includes primary keyword.\n"
+                f"- `<meta name=\"description\">`: 50-160 characters. Clear value proposition.\n"
+                f"- `<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">`: Mobile responsive viewport.\n"
+                f"- `<link rel=\"canonical\" href=\"...\">`: Prevents duplicate content indexing.\n\n"
+                f"## 2. Social Sharing & OpenGraph / Twitter Cards\n"
+                f"- OpenGraph: `og:title`, `og:description`, `og:type`, `og:url`, `og:image`.\n"
+                f"- Twitter Cards: `twitter:card` (summary_large_image), `twitter:title`, `twitter:description`.\n\n"
+                f"## 3. Schema.org JSON-LD Structured Data\n"
+                f"Embed `<script type=\"application/ld+json\">` in `<head>` or before `</body>`.\n"
+                f"Standard types:\n"
+                f"- `SoftwareApplication`: For SaaS, dev tools, and agent frameworks.\n"
+                f"- `WebSite`: For marketing pages and docs.\n"
+                f"- `Organization`: For foundation and company credentials.\n"
+                f"- `FAQPage`: Formats landing page FAQs for Google rich snippets and AI Answer Engines.\n\n"
+                f"## 4. Verification CLI\n"
+                f"Audit and generate using native UAAF tools:\n"
+                f"```bash\n"
+                f"python tools/uaf.py seo audit docs/index.html --threshold 80\n"
+                f"python tools/uaf.py seo generate --type SoftwareApplication --name \"App\" --description \"...\" --url \"...\"\n"
+                f"```\n"
+            )
+        else:
+            skill_content = (
+                f"---\n"
+                f"name: {s['name']}\n"
+                f"description: {s['description']}\n"
+                f"---\n\n"
+                f"# Skill: {s['name']}\n\n"
+                f"{s['description']}\n\n"
+                f"## Practical Guidelines\n"
+                f"- Prioritize surgical, minimal diffs over large rewrites.\n"
+                f"- Verify all interfaces with strong type checking and comprehensive assertions.\n"
+                f"- Adhere to project conventions established in `.ai/core/CONVENTIONS.md`.\n"
+            )
         skill_file.write_text(skill_content, encoding="utf-8")
 
     # 4. Inject UAAF Governance Wrapper

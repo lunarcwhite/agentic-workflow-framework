@@ -2160,6 +2160,23 @@ def validate_v32_extensions(root: Path, manifest: dict, errors: list[str], warni
                     warnings.append(f"CONF-V32-003 plugin '{p_dir.name}' lacks GOVERNANCE.md")
 
 
+def validate_v33_extensions(root: Path, manifest: dict, errors: list[str], warnings: list[str]):
+    ext = manifest.get("extensions") or {}
+    ext_version = str(ext.get("version", "0"))
+    if ext_version not in {"3.3", "3.3.0"}:
+        return
+    protocols = manifest.get("protocols") or {}
+    if str(protocols.get("seo_governance", "")) != "UAAF-SEO-1.0":
+        errors.append("CONF-V33-001 protocols.seo_governance must be UAAF-SEO-1.0")
+    seo_ext = ext.get("seo_governance") or {}
+    if not seo_ext:
+        errors.append("CONF-V33-002 extensions.seo_governance missing")
+    else:
+        min_score = seo_ext.get("min_audit_score", 0)
+        if not isinstance(min_score, int) or min_score < 70:
+            errors.append(f"CONF-V33-003 min_audit_score must be an integer >= 70, got {min_score}")
+
+
 def check(path: Path, level: str = "standard", pinned_root_fingerprint: str | None = None) -> tuple[list[str], list[str], list[str]]:
     root = path.resolve()
     errors: list[str] = []
@@ -2209,6 +2226,7 @@ def check(path: Path, level: str = "standard", pinned_root_fingerprint: str | No
         validate_v30_extensions(root, manifest, errors, warnings)
         validate_v31_extensions(root, manifest, errors, warnings)
         validate_v32_extensions(root, manifest, errors, warnings)
+        validate_v33_extensions(root, manifest, errors, warnings)
 
     # Placeholder warning in stable kernel files.
     for rel in [".ai/core/CONTEXT.md", ".ai/core/CONVENTIONS.md"]:

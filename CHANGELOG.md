@@ -1,5 +1,23 @@
 # Changelog
 
+## v3.3.0 — 2026-09-27
+
+- **Native Landing Page Design Architecture**:
+  - Implemented 2-part landing page framework: Part A Strategy (intake discovery, 12-section conversion hierarchy, PAS/AIDA copywriting, and sequential build order) and Part B Visual System (Geist/Manrope typography, balanced text-wrap, tokenized type scales, and flat cards with full perimeter borders).
+  - Shipped pre-bundled native package `landing-page-seo` with high-fidelity `landing-page-design` and `technical-seo` skills.
+- **Automated Technical SEO & AEO Governance (`uaf seo`)**:
+  - Introduced protocol `UAAF-SEO-1.0`.
+  - Added `uaf seo audit <file_or_dir>` with deterministic quality checks for `<title>`, `<meta name="description">`, viewport, canonical tags, OpenGraph, Twitter Cards, heading hierarchy, image `alt` attributes, and Schema.org JSON-LD structured data.
+  - Added `uaf seo generate` for generating standards-compliant Schema.org JSON-LD (`SoftwareApplication`, `Organization`, `WebSite`, `FAQPage`).
+- **Dynamic Multi-Agent Team Adaptation**:
+  - Added `landing_page_pro` and `seo_specialist` to `ROLE_DEFINITIONS` in `uaf_team.py`.
+  - Automatic promotion in `uaf team compose` when prompts mention landing pages, marketing, conversion, or SEO.
+  - Non-overlapping perimeter assignment to `docs/*` and `src/components/*` enforced by atomic claims lock (`.claims.lock`).
+- **Scaffold & Checker Conformance**:
+  - Added `--extension v3.3` and `--extension v3.3.0` in `uaf_init.py`.
+  - Added conformance assertions `CONF-V33-001` through `CONF-V33-003` in `uaf_check.py`.
+  - Tested 100% clean check and audit passes.
+
 ## v3.2.0 — 2026-09-27
 
 - **Agentic Plugin Marketplace Manager (`uaf plugin`)**: Introduced protocol `UAAF-PLUGIN-1.0` bridging UAAF to extensive agentic plugin ecosystems (including `wshobson/agents`).

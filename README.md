@@ -5,7 +5,7 @@
 [![Release](https://img.shields.io/github/v/release/lunarcwhite/agentic-workflow-framework?color=blue&label=release)](https://github.com/lunarcwhite/agentic-workflow-framework/releases)
 [![Python](https://img.shields.io/badge/python-3.9%20%7C%203.10%20%7C%203.11%20%7C%203.12-blue)](https://www.python.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Spec](https://img.shields.io/badge/spec-UAP--1.0%20%7C%20UAAF--PLUGIN--1.0-success)](./spec)
+[![Spec](https://img.shields.io/badge/spec-UAP--1.0%20%7C%20UAAF--PLUGIN--1.0%20%7C%20UAAF--SEO--1.0-success)](./spec)
 
 UAAF is an open protocol, reference knowledge scaffold, and secure runtime for autonomous AI coding agents. It prevents silent drift, enforces anti-slop constraints, anchors verifiable evidence, and enables decentralized multi-agent federation.
 
@@ -171,8 +171,8 @@ Initialize UAF into any new or existing project:
 # Standard profile (recommended for general projects)
 uaf init ./my-project --profile standard --auto-detect
 
-# Full profile with Team Orchestrator, Plugin Marketplace & Federated Runtime v3.2.0
-uaf init ./my-project --profile full --extension v3.2.0
+# Full profile with Team Orchestrator, Plugin Marketplace & Native SEO Governance v3.3.0
+uaf init ./my-project --profile full --extension v3.3.0
 ```
 
 Use `--docs all` for the complete documentation catalog or `--docs none` to omit `docs/`.

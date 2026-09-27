@@ -4,15 +4,42 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="color-scheme" content="dark light">
-  <title>UAAF — Universal AI Agent Framework | Governance & Verification for AI Coding Agents</title>
-  <meta name="description" content="Keep autonomous AI coding agents disciplined and accountable. Universal AI Agent Framework (UAAF) provides standardized repository governance (.ai/), deterministic task contracts, test evidence receipts, and a Python verification CLI.">
+  <title>UAAF — Universal AI Agent Framework | Governance &amp; Verification</title>
+  <meta name="description" content="Deterministic task contracts, test evidence receipts, and multi-agent governance for autonomous AI coding agents.">
   <meta name="keywords" content="AI Agent Framework, AI Governance, Task Contract, Verifiable Evidence, AI Coding Agents, Anti-Slop, Cursor, Claude Code, Antigravity, LLM Engineering">
+  <link rel="canonical" href="https://lunarcwhite.github.io/agentic-workflow-framework/">
   
   <!-- Open Graph / Social Sharing -->
   <meta property="og:type" content="website">
-  <meta property="og:title" content="UAAF — Universal AI Agent Framework | Governance & Verification for AI Coding Agents">
-  <meta property="og:description" content="Discipline AI coding agents with deterministic task contracts, verifiable evidence receipts, and auditable CLI verification.">
+  <meta property="og:title" content="UAAF — Universal AI Agent Framework | Governance &amp; Verification">
+  <meta property="og:description" content="Deterministic task contracts, test evidence receipts, and multi-agent governance for autonomous AI coding agents.">
   <meta property="og:url" content="https://lunarcwhite.github.io/agentic-workflow-framework/">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="UAAF — Universal AI Agent Framework">
+  <meta name="twitter:description" content="Deterministic task contracts, test evidence receipts, and multi-agent governance for AI coding agents.">
+
+  <!-- Schema.org JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Universal AI Agent Framework (UAAF)",
+    "description": "Standardized repository governance, deterministic task contracts, and verification CLI for autonomous AI coding agents.",
+    "url": "https://lunarcwhite.github.io/agentic-workflow-framework/",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Cross-platform",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "author": {
+      "@type": "Organization",
+      "name": "UAAF Open Source Initiative",
+      "url": "https://github.com/lunarcwhite/agentic-workflow-framework"
+    }
+  }
+  </script>
   
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
@@ -51,7 +78,7 @@
           <li><a href="#gates" class="nav-link">Gates</a></li>
           <li><a href="#axioms" class="nav-link">Axioms</a></li>
           <li><a href="#terminal" class="nav-link">CLI</a></li>
-          <li><a href="#extensions" class="nav-link">Protocols (v3.2)</a></li>
+          <li><a href="#extensions" class="nav-link">Protocols (v3.3)</a></li>
           <li><a href="#quickstart" class="nav-link">Quickstart</a></li>
         </ul>
       </nav>
@@ -66,7 +93,7 @@
             <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
           </svg>
           <span class="gh-text">GitHub</span>
-          <span class="gh-badge">v3.2.0</span>
+          <span class="gh-badge">v3.3.0</span>
         </a>
       </div>
     </div>
@@ -734,6 +761,7 @@
             <button class="code-tab-btn active" data-tab="tab-cli" role="tab" aria-selected="true">With Python CLI (Recommended)</button>
             <button class="code-tab-btn" data-tab="tab-team" role="tab" aria-selected="false">Multi-Agent Team (v3.1)</button>
             <button class="code-tab-btn" data-tab="tab-plugin" role="tab" aria-selected="false">Plugin Marketplace (v3.2)</button>
+            <button class="code-tab-btn" data-tab="tab-seo" role="tab" aria-selected="false">Landing &amp; SEO (v3.3)</button>
             <button class="code-tab-btn" data-tab="tab-nopy" role="tab" aria-selected="false">Pure Scaffold (Zero Python, Any Language)</button>
             <button class="code-tab-btn" data-tab="tab-federation" role="tab" aria-selected="false">Multi-Agent Federation &amp; Crypto</button>
           </div>
@@ -788,6 +816,20 @@
             <span class="tok-cmd">python tools/uaf.py plugin export specialist/fastapi_pro --target claude-code</span>
           </div>
 
+          <div id="tab-seo" class="code-content" role="tabpanel">
+            <span class="tok-dim"># 1. Audit HTML for SEO, OpenGraph, JSON-LD, and semantic headings</span><br>
+            <span class="tok-cmd">python tools/uaf.py seo audit docs/index.html --threshold 85</span><br>
+            <br>
+            <span class="tok-dim"># 2. Generate Schema.org JSON-LD structured data</span><br>
+            <span class="tok-cmd">python tools/uaf.py seo generate --type SoftwareApplication --name "UAAF" --description "AI Agent Governance" --url "https://example.com"</span><br>
+            <br>
+            <span class="tok-dim"># 3. Install native Landing Page &amp; SEO package</span><br>
+            <span class="tok-cmd">python tools/uaf.py plugin install landing-page-seo</span><br>
+            <br>
+            <span class="tok-dim"># 4. Compose team with automatic Landing Page &amp; SEO specialist adaptation</span><br>
+            <span class="tok-cmd">python tools/uaf.py team compose "Build high-converting landing page and optimize SEO"</span>
+          </div>
+
           <div id="tab-nopy" class="code-content" role="tabpanel">
             <span class="tok-dim"># Works for TypeScript, Go, Rust, Java, C#, PHP, or any codebase!</span><br>
             <span class="tok-dim"># 1. Copy the knowledge scaffold and agent kernel into your project root:</span><br>
@@ -820,7 +862,7 @@
           <div class="brand-logo">
             <img src="favicon.svg" alt="UAAF Logo" class="brand-icon">
             <span class="brand-title">UAAF</span>
-            <span class="footer-badge">v3.2.0</span>
+            <span class="footer-badge">v3.3.0</span>
           </div>
           <p class="footer-brand-desc">
             Universal AI Agent Framework — open repository governance, deterministic task contracts, and verification CLI for autonomous AI coding agents.

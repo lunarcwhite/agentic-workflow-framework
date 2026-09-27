@@ -30,3 +30,6 @@ tmp-*/
 Thumbs.db
 .vscode/
 .idea/
+.venv/
+uv.lock
+
