@@ -5,7 +5,7 @@
 [![Release](https://img.shields.io/github/v/release/lunarcwhite/agentic-workflow-framework?color=blue&label=release)](https://github.com/lunarcwhite/agentic-workflow-framework/releases)
 [![Python](https://img.shields.io/badge/python-3.9%20%7C%203.10%20%7C%203.11%20%7C%203.12-blue)](https://www.python.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Spec](https://img.shields.io/badge/spec-UAP--1.0%20%7C%20UAAF--FED--3.0-success)](./spec)
+[![Spec](https://img.shields.io/badge/spec-UAP--1.0%20%7C%20UAAF--PLUGIN--1.0-success)](./spec)
 
 UAAF is an open protocol, reference knowledge scaffold, and secure runtime for autonomous AI coding agents. It prevents silent drift, enforces anti-slop constraints, anchors verifiable evidence, and enables decentralized multi-agent federation.
 
@@ -171,8 +171,8 @@ Initialize UAF into any new or existing project:
 # Standard profile (recommended for general projects)
 uaf init ./my-project --profile standard --auto-detect
 
-# Full profile with Team Orchestrator & Federated Agent Runtime v3.1.0
-uaf init ./my-project --profile full --extension v3.1.0
+# Full profile with Team Orchestrator, Plugin Marketplace & Federated Runtime v3.2.0
+uaf init ./my-project --profile full --extension v3.2.0
 ```
 
 Use `--docs all` for the complete documentation catalog or `--docs none` to omit `docs/`.
@@ -182,6 +182,31 @@ The v1.5 Context Receipt template supports optional `estimated_tokens` and decla
 ## Extensions
 
 Versions are cumulative. Selecting a later version includes earlier extension layers.
+
+### v3.2 — Agentic Plugin Marketplace & Domain Specialists
+
+v3.2 introduces protocol `UAAF-PLUGIN-1.0`, connecting UAAF to large-scale agentic plugin and skill ecosystems (such as [`wshobson/agents`](https://github.com/wshobson/agents)). It provides automated governance auditing, dynamic team role discovery, and domain-specialist adaptation.
+
+> 📖 **Normative Specification**: See [UAAF-v3.2-EXTENSIONS.md](./spec/UAAF-v3.2-EXTENSIONS.md).
+
+#### Core Capabilities
+- **Curated & Remote Discovery**: `uaf plugin search <query>` inspects the built-in catalog or queries GitHub registries.
+- **Governed Scaffolding**: `uaf plugin install <name>` downloads plugins, establishes `.ai/plugins/<name>/`, and automatically writes `GOVERNANCE.md` while anchoring cryptographic evidence receipts.
+- **Dynamic Team Role Discovery**: `uaf team compose` automatically detects installed plugin roles and maps prompt keywords to domain specialists (`fastapi_pro`, `react_pro`, `postgresql_dba`, `devops_engineer`, `testing_specialist`).
+- **Universal Multi-Target Export**: `uaf plugin export <name> --target all` emits native formats for Claude Code, Antigravity, Cursor, and Pi.
+
+```bash
+# 1. Search for specialized plugins & agents
+python tools/uaf.py plugin search fastapi
+python tools/uaf.py plugin search security
+
+# 2. Install and govern plugins into .ai/plugins/
+python tools/uaf.py plugin install python-development
+python tools/uaf.py plugin install security-audit
+
+# 3. Export plugin personas across harnesses
+python tools/uaf.py plugin export python-development --target all
+```
 
 ### v3.1 — Team-Architecture Factory & Multi-Agent Orchestrator
 
@@ -226,23 +251,6 @@ python tools/uaf.py team release
 
 # 6. Verify deliverables against contracts and evidence receipts
 python tools/uaf.py team verify
-```
-
-#### 📦 Agentic Plugin Marketplace Integration (`wshobson/agents` Compatible)
-
-Extend your multi-agent teams with 200+ specialized domain personas and modular skills:
-
-```bash
-# 1. Search for specialized plugins & agents
-python tools/uaf.py plugin search fastapi
-python tools/uaf.py plugin search security
-
-# 2. Install and govern plugins into .ai/plugins/
-python tools/uaf.py plugin install python-development
-python tools/uaf.py plugin install security-audit
-
-# 3. Export plugin personas across harnesses
-python tools/uaf.py plugin export python-development --target all
 ```
 
 ### v3.0 — Federated Agent Runtime

@@ -4,8 +4,11 @@ This directory archives the validation reports, field reports, and implementatio
 
 ## 📋 Directory Contents
 
+- **v3.2.x Reports**:
+  - `V3.2-VALIDATION-REPORT.md` — Current v3.2.0 Agentic Plugin Marketplace validation report.
+  - `V3.2-IMPLEMENTATION.md` — Agentic Plugin Marketplace & Domain Specialist implementation notes.
 - **v3.1.x Reports**:
-  - `V3.1-VALIDATION-REPORT.md` — Current v3.1.0 Team-Architecture Factory validation report.
+  - `V3.1-VALIDATION-REPORT.md` — Team-Architecture Factory validation report.
   - `V3.1-IMPLEMENTATION.md` — Team-Architecture Factory & Multi-Agent Orchestrator implementation notes.
 - **v3.0.x Reports**:
   - `V3.0.1-VALIDATION-REPORT.md` — Current reference distribution validation report.
